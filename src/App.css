@@ -5,4 +5,11 @@
 
 .container li button {
     margin-left: 10px;
+    color: red;
+    padding: 0 4px;
+}
+
+.div-filter {
+    display: flex;
+    justify-content: space-between;
 }
