@@ -1,0 +1,8 @@
+.App {
+    padding: 30px;
+    display: flex;
+}
+
+.container li button {
+    margin-left: 10px;
+}
