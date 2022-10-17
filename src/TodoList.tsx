@@ -1,10 +1,11 @@
 import React from 'react';
-import {TaskType} from "./App";
+import {FilterValueType, TaskType} from "./App";
 
 type TodoListPropsType = {
     title: string,
     tasks: Array<TaskType>
     removeTask: (taskId: number) => void
+    cnangeFilter: (filter: FilterValueType) => void
 }
 
 const TodoList = (props: TodoListPropsType) => {
@@ -35,10 +36,10 @@ const TodoList = (props: TodoListPropsType) => {
                 <button>+</button>
             </div>
             {tasksList}
-            <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+            <div className={'div-filter'}>
+                <button onClick={() => props.cnangeFilter('all')}>All</button>
+                <button onClick={() => props.cnangeFilter('active')}>Active</button>
+                <button onClick={() => props.cnangeFilter('completed')}>Completed</button>
             </div>
         </div>
     );
