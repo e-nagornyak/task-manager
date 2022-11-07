@@ -9,6 +9,7 @@ import {resolveSrv} from "dns";
 // Reade => part, pagination, filtration, sort
 // Update
 // Delete
+
 console.log(v1())
 export type TaskType = {
     id: string,
@@ -26,13 +27,14 @@ function App() {
             {id: v1(), title: "HTML & CSS", isDone: true},
             {id: v1(), title: "JS & ES6", isDone: true},
             {id: v1(), title: "React & TS", isDone: false},
+            {id: v1(), title: "React & TS", isDone: false},
+            {id: v1(), title: "React & TS", isDone: false},
         ]
     )
 
     const removeTask = (taskId: string) => {
         setTasksForTodoList(tasksForTodoList.filter(task => task.id !== taskId))
     }
-
     const addTask = (title: string) => {
         const newTask: TaskType = {
             id: v1(),
@@ -40,6 +42,9 @@ function App() {
             isDone: false
         }
         setTasksForTodoList([newTask, ...tasksForTodoList])
+    }
+    const changeTaskStatus = (taskId: string, isDone: boolean) => {
+        setTasksForTodoList(tasksForTodoList.map(t => t.id === taskId ? {...t, isDone: isDone}: t))
     }
 
     const [filter, setFilter] = useState<FilterValueType>('all')
@@ -65,9 +70,11 @@ function App() {
             <TodoList
                 title={todoListTitle}
                 tasks={getFilterTasks(tasksForTodoList, filter)}
+                filter={filter}
                 addTask={addTask}
                 removeTask={removeTask}
                 cnangeFilter={cnangeFilter}
+                changeTaskStatus={changeTaskStatus}
             />
         </div>
     );
