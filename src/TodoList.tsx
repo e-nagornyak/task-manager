@@ -2,13 +2,15 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValueType, TaskType} from "./App";
 
 type TodoListPropsType = {
+    todolistId: string
     title: string,
-    tasks: Array<TaskType>
+    tasks: TaskType[]
     filter: FilterValueType
-    addTask: (title: string) => void
-    removeTask: (taskId: string) => void
-    cnangeFilter: (filter: FilterValueType) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
+    addTask: (todolistId: string, title: string) => void
+    removeTask: (todolistId: string, taskId: string) => void
+    cnangeFilter: (todolistId: string, filter: FilterValueType) => void
+    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
+    removeTodolistItem: (todolistId: string) => void
 }
 
 const TodoList = (props: TodoListPropsType) => {
@@ -21,8 +23,8 @@ const TodoList = (props: TodoListPropsType) => {
         <ul>
             {
                 props.tasks.map((task) => {
-                    const removeTask = () => props.removeTask(task.id)
-                    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(task.id, e.currentTarget.checked)
+                    const removeTask = () => props.removeTask(props.todolistId, task.id)
+                    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(props.todolistId,task.id, e.currentTarget.checked)
 
                     return (
                         <li key={task.id} className={task.isDone ? 'isDone' : ''}>
@@ -42,7 +44,7 @@ const TodoList = (props: TodoListPropsType) => {
     const onClickAddTask = () => {
         const trimmedTitle = title.trim()
         if (trimmedTitle) {
-            props.addTask(trimmedTitle)
+            props.addTask(props.todolistId, trimmedTitle)
         } else {
             setError(true)
         }
@@ -53,14 +55,20 @@ const TodoList = (props: TodoListPropsType) => {
         setError(false)
     }
     const changeFilterHandlerCreator = (filter: FilterValueType) => {
-        const handler = () => props.cnangeFilter(filter)
+        const handler = () => props.cnangeFilter(props.todolistId, filter)
         return handler
     }
     const onKeyDownEnterAddTask = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && onClickAddTask()
+    const removeTodolistItemHandler = () => {
+        props.removeTodolistItem(props.todolistId)
+    }
 
     return (
         <div className={'container'}>
-            <h3>{props.title}</h3>
+            <h3>
+                {props.title}
+                <button onClick={removeTodolistItemHandler}>x</button>
+            </h3>
             <div>
                 <input
                     value={title} // контрольований input
