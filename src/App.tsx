@@ -88,34 +88,41 @@ function App() {
         setTodolists(todolists.filter(el => el.id !== todolistId))
     }
 
+    const todolistItem = todolists.length
+        ?
+        todolists.map(el => {
+            let filteredTasks = tasks[el.id]
+
+            if (el.filter === 'active') {
+                filteredTasks = tasks[el.id].filter(t => !t.isDone)
+            }
+            if (el.filter === 'completed') {
+                filteredTasks = tasks[el.id].filter(t => t.isDone)
+            }
+
+            return (
+                <TodoList
+                    key={el.id}
+                    todolistId={el.id}
+                    title={el.title}
+                    tasks={filteredTasks}
+                    filter={el.filter}
+                    addTask={addTask}
+                    removeTask={removeTask}
+                    cnangeFilter={cnangeFilter}
+                    changeTaskStatus={changeTaskStatus}
+                    removeTodolistItem={removeTodolistItem}
+                />
+            )
+        })
+        :
+        <span className={'warning'}>Your list is empty</span>
+
+
     //GUI (graphical user interface):
     return (
         <div className="App">
-            {todolists.map(el => {
-                let filteredTasks = tasks[el.id]
-
-                if (el.filter === 'active') {
-                    filteredTasks = tasks[el.id].filter(t => !t.isDone)
-                }
-                if (el.filter === 'completed') {
-                    filteredTasks = tasks[el.id].filter(t => t.isDone)
-                }
-
-                return (
-                    <TodoList
-                        key={el.id}
-                        todolistId={el.id}
-                        title={el.title}
-                        tasks={filteredTasks}
-                        filter={el.filter}
-                        addTask={addTask}
-                        removeTask={removeTask}
-                        cnangeFilter={cnangeFilter}
-                        changeTaskStatus={changeTaskStatus}
-                        removeTodolistItem={removeTodolistItem}
-                    />
-                )
-            })}
+            {todolistItem}
         </div>
     )
 }

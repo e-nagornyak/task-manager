@@ -3,10 +3,21 @@
     display: flex;
 }
 
+.container {
+    margin-right: 60px;
+}
+
 .container li button {
     margin-left: 10px;
     color: red;
     padding: 0 4px;
+}
+
+.warning {
+    color: red;
+    font-size: 40px;
+    border: 1px solid red;
+    padding: 5px;
 }
 
 .div-filter {
