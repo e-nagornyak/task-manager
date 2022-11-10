@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {v1} from "uuid";
 import TodoList from "./TodoList";
 import './css/App.css';
-import {resolveSrv} from "dns";
 
 //CRUD
 // Create
@@ -10,7 +9,6 @@ import {resolveSrv} from "dns";
 // Update
 // Delete
 
-console.log(v1())
 export type TaskType = {
     id: string,
     title: string,
