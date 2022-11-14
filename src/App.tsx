@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {v1} from "uuid";
 import TodoList from "./TodoList";
 import './css/App.css';
+import {AddItemForm} from "./AddItemForm";
 
 //CRUD
 // Create
@@ -28,15 +29,6 @@ type TasksType = {
 
 function App() {
     // BLL (business logic layer):
-    // const [tasksForTodoList, setTasksForTodoList] = useState<Array<TaskType>>(
-    //     [
-    //         {id: v1(), title: "HTML & CSS", isDone: true},
-    //         {id: v1(), title: "JS & ES6", isDone: true},
-    //         {id: v1(), title: "React & TS", isDone: false},
-    //         {id: v1(), title: "React & TS", isDone: false},
-    //         {id: v1(), title: "React & TS", isDone: false},
-    //     ]
-    // )
     let todolistID1 = v1();
     let todolistID2 = v1();
 
@@ -62,6 +54,11 @@ function App() {
         ]
     });
 
+    const addTodolist = (title: string) => {
+        let newTodolist: TodolistsType = {id: v1(), title, filter: 'all'}
+        setTodolists([newTodolist, ...todolists])
+        setTasks({...tasks, [newTodolist.id]: []})
+    }
 
     const removeTask = (todolistId: string, taskId: string) => {
         setTasks({...tasks, [todolistId]: tasks[todolistId].filter(el => el.id !== taskId)})
@@ -122,6 +119,7 @@ function App() {
     //GUI (graphical user interface):
     return (
         <div className="App">
+            <AddItemForm addItem={addTodolist}/>
             {todolistItem}
         </div>
     )

@@ -1,5 +1,6 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterValueType, TaskType} from "./App";
+import {AddItemForm} from "./AddItemForm";
 
 type TodoListPropsType = {
     todolistId: string
@@ -14,17 +15,13 @@ type TodoListPropsType = {
 }
 
 const TodoList = (props: TodoListPropsType) => {
-    // тимчасове сховище
-    const [error, setError] = useState<boolean>(false)
-    const [title, setTitle] = useState<string>('')
-    //
     const tasksList = props.tasks.length
         ?
         <ul>
             {
                 props.tasks.map((task) => {
                     const removeTask = () => props.removeTask(props.todolistId, task.id)
-                    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(props.todolistId,task.id, e.currentTarget.checked)
+                    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(props.todolistId, task.id, e.currentTarget.checked)
 
                     return (
                         <li key={task.id} className={task.isDone ? 'isDone' : ''}>
@@ -41,26 +38,16 @@ const TodoList = (props: TodoListPropsType) => {
         </ul>
         : <span>Your list is empty</span>
 
-    const onClickAddTask = () => {
-        const trimmedTitle = title.trim()
-        if (trimmedTitle) {
-            props.addTask(props.todolistId, trimmedTitle)
-        } else {
-            setError(true)
-        }
-        setTitle('')
-    }
-    const onChangeSetLocalTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-        setError(false)
-    }
+
     const changeFilterHandlerCreator = (filter: FilterValueType) => {
-        const handler = () => props.cnangeFilter(props.todolistId, filter)
-        return handler
+        return () => props.cnangeFilter(props.todolistId, filter)
     }
-    const onKeyDownEnterAddTask = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && onClickAddTask()
     const removeTodolistItemHandler = () => {
         props.removeTodolistItem(props.todolistId)
+    }
+
+    const addTask = (title: string) => {
+        props.addTask( props.todolistId, title)
     }
 
     return (
@@ -69,16 +56,7 @@ const TodoList = (props: TodoListPropsType) => {
                 {props.title}
                 <button onClick={removeTodolistItemHandler}>x</button>
             </h3>
-            <div>
-                <input
-                    value={title} // контрольований input
-                    onChange={onChangeSetLocalTitle}
-                    onKeyDown={onKeyDownEnterAddTask}
-                    className={error ? 'error' : ''}
-                />
-                <button onClick={onClickAddTask}>+</button>
-                {error && <div className={"errorTitle"}>Title is required</div>}
-            </div>
+            <AddItemForm addItem={addTask}/>
             {tasksList}
             <div className={'div-filter'}>
                 <button className={props.filter === 'all' ? 'btn-active' : ''}
