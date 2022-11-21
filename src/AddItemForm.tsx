@@ -1,4 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import {Button, TextField} from "@mui/material";
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -26,13 +28,16 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
 
     return (
         <div>
-            <input
+            <TextField id="outlined-basic" label="Outlined" variant="standard"
                 value={title}
                 onChange={onChangeSetLocalTitle}
                 onKeyDown={onKeyDownEnterAddTask}
                 className={error ? 'error' : ''}
             />
-            <button onClick={onClickAddTask}>+</button>
+            <Button onClick={onClickAddTask} variant="text" startIcon={<LibraryAddIcon />}>
+                Add
+            </Button>
+            {/*<button >+</button>*/}
             {error && <div className={"errorTitle"}>Title is required</div>}
         </div>
     )

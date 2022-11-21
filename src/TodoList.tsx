@@ -2,6 +2,8 @@ import React, {ChangeEvent} from 'react';
 import {FilterValueType, TaskType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
+import {Button, IconButton} from "@mui/material";
+import BackspaceIcon from '@mui/icons-material/Backspace';
 
 type TodoListPropsType = {
     todolistId: string
@@ -37,7 +39,11 @@ const TodoList = (props: TodoListPropsType) => {
                                 type="checkbox"
                                 checked={task.isDone}/>
                             <EditableSpan title={task.title} onChange={changeTitleStatus}/>
-                            <button onClick={removeTask}>x</button>
+                            {/*<button onClick={removeTask}>x</button>*/}
+                            {/*<Button variant={'contained'} color={'primary'} onClick={removeTask}>X</Button>*/}
+                            <IconButton onClick={removeTask} aria-label="delete" >
+                                <BackspaceIcon color={'action'}/>
+                            </IconButton>
                         </li>
                     )
                 })
