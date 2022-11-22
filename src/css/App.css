@@ -1,52 +1,52 @@
-.App {
-    padding: 30px;
-    display: flex;
-}
+/*.App {*/
+/*    padding: 30px;*/
+/*    display: flex;*/
+/*}*/
 
-.container {
-    margin-right: 60px;
-}
+/*.container {*/
+/*    margin-right: 60px;*/
+/*}*/
 
-.container li button {
-    margin-left: 10px;
-    color: red;
-    padding: 0 4px;
-}
+/*.container li button {*/
+/*    margin-left: 10px;*/
+/*    color: red;*/
+/*    padding: 0 4px;*/
+/*}*/
 
-.warning {
-    color: red;
-    font-size: 40px;
-    border: 1px solid red;
-    padding: 5px;
-}
+/*.warning {*/
+/*    color: red;*/
+/*    font-size: 40px;*/
+/*    border: 1px solid red;*/
+/*    padding: 5px;*/
+/*}*/
 
-.div-filter {
-    display: flex;
-    justify-content: space-between;
-}
+/*.div-filter {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
 
-.isDone {
-    font-weight: bold;
-    opacity: 50%;
-    color: red;
-    text-decoration: line-through;
-    list-style: none;
-}
+/*.isDone {*/
+/*    font-weight: bold;*/
+/*    opacity: 50%;*/
+/*    color: red;*/
+/*    text-decoration: line-through;*/
+/*    list-style: none;*/
+/*}*/
 
-.btn-active {
-    font-weight: bold;
-    color: white;
-    background-color: red;
-    border: 1px solid black;
-    box-shadow: 0px -2px 22px -4px rgba(0, 0, 0, 0.37);
-}
+/*.btn-active {*/
+/*    font-weight: bold;*/
+/*    color: white;*/
+/*    background-color: red;*/
+/*    border: 1px solid black;*/
+/*    box-shadow: 0px -2px 22px -4px rgba(0, 0, 0, 0.37);*/
+/*}*/
 
-.error {
-    border: 2px solid red;
-    outline: none;
-}
+/*.error {*/
+/*    border: 2px solid red;*/
+/*    outline: none;*/
+/*}*/
 
-.errorTitle {
-    font-weight: bold;
-    color: red;
-}
+/*.errorTitle {*/
+/*    font-weight: bold;*/
+/*    color: red;*/
+/*}*/

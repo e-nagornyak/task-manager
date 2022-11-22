@@ -3,6 +3,10 @@ import {v1} from "uuid";
 import TodoList from "./TodoList";
 import './css/App.css';
 import {AddItemForm} from "./AddItemForm";
+import ButtonAppBar from "./ButtonAppBar";
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from "@mui/material/Paper";
 
 //CRUD
 // Create
@@ -109,20 +113,24 @@ function App() {
             }
 
             return (
-                <TodoList
-                    key={el.id}
-                    todolistId={el.id}
-                    title={el.title}
-                    tasks={filteredTasks}
-                    filter={el.filter}
-                    addTask={addTask}
-                    removeTask={removeTask}
-                    cnangeFilter={cnangeFilter}
-                    changeTaskStatus={changeTaskStatus}
-                    changeTaskTitle={changeTaskTitle}
-                    removeTodolistItem={removeTodolistItem}
-                    changeTodolistTile={changeTodolistTile}
-                />
+                <Grid item>
+                    <Paper style={{padding: '10px'}}>
+                        <TodoList
+                            key={el.id}
+                            todolistId={el.id}
+                            title={el.title}
+                            tasks={filteredTasks}
+                            filter={el.filter}
+                            addTask={addTask}
+                            removeTask={removeTask}
+                            cnangeFilter={cnangeFilter}
+                            changeTaskStatus={changeTaskStatus}
+                            changeTaskTitle={changeTaskTitle}
+                            removeTodolistItem={removeTodolistItem}
+                            changeTodolistTile={changeTodolistTile}
+                        />
+                    </Paper>
+                </Grid>
             )
         })
         :
@@ -132,8 +140,15 @@ function App() {
     //GUI (graphical user interface):
     return (
         <div className="App">
-            <AddItemForm addItem={addTodolist}/>
-            {todolistItem}
+            <ButtonAppBar/>
+            <Container fixed>
+                <Grid container>
+                    <AddItemForm addItem={addTodolist}/>
+                </Grid>
+                <Grid container spacing={3}>
+                    {todolistItem}
+                </Grid>
+            </Container>
         </div>
     )
 }

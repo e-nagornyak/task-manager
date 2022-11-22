@@ -28,17 +28,20 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
 
     return (
         <div>
-            <TextField id="outlined-basic" label="Outlined" variant="standard"
+            <TextField
+                id="outlined-basic"
+                label={error ? 'Title is required' : 'type your text'}
+                variant="standard"
+                error={error}
                 value={title}
                 onChange={onChangeSetLocalTitle}
                 onKeyDown={onKeyDownEnterAddTask}
-                className={error ? 'error' : ''}
             />
-            <Button onClick={onClickAddTask} variant="text" startIcon={<LibraryAddIcon />}>
+            <Button onClick={onClickAddTask} variant="text" startIcon={<LibraryAddIcon/>}>
                 Add
             </Button>
             {/*<button >+</button>*/}
-            {error && <div className={"errorTitle"}>Title is required</div>}
+            {/*{error && <div className={"errorTitle"}>Title is required</div>}*/}
         </div>
     )
 }
