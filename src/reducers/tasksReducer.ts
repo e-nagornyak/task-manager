@@ -8,7 +8,7 @@ type actionType =
     | changeTaskTitleACType
     | addTaskForNewTodolistAcType
 
-export const tasksReducer = (state: TasksType, action: actionType) => {
+export const tasksReducer = (state: TasksType, action: actionType): TasksType => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             return {
@@ -45,6 +45,7 @@ export const tasksReducer = (state: TasksType, action: actionType) => {
                 [action.payload.todolistId]: []
             }
         }
+
         default:
             return state
     }
@@ -88,3 +89,5 @@ export const addTaskForNewTodolistAC = (todolistId: string) => {
         payload: {todolistId}
     } as const
 }
+
+

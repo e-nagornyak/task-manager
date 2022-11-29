@@ -41,20 +41,22 @@ export type TasksType = {
 
 function App() {
     // BLL (business logic layer):
+    let todolistID1 = v1()
+    let todolistID2 = v1()
     const [todolists, dispatchTodolists] = useReducer(todolistsReducer, [
-        {id: v1(), title: 'What to learn', filter: 'all'},
-        {id: v1(), title: 'What to buy', filter: 'all'},
+        {id: todolistID1, title: 'What to learn', filter: 'all'},
+        {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
 
     const [tasks, dispatchTasks] = useReducer(tasksReducer, {
-        [todolists[0].id]: [
+        [todolistID1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
             {id: v1(), title: "ReactJS", isDone: false},
             {id: v1(), title: "Rest API", isDone: false},
             {id: v1(), title: "GraphQL", isDone: false},
         ],
-        [todolists[1].id]: [
+        [todolistID2]: [
             {id: v1(), title: "HTML&CSS2", isDone: true},
             {id: v1(), title: "JS2", isDone: true},
             {id: v1(), title: "ReactJS2", isDone: false},
@@ -74,8 +76,14 @@ function App() {
         let newTodolist: TodolistsType = {id: v1(), title, filter: 'all'}
         dispatchTodolists(addTodolistAC(newTodolist))
         dispatchTasks(addTaskForNewTodolistAC(newTodolist.id))
+
     }
-    const removeTodolistItem = (todolistId: string) => dispatchTodolists(removeTodolistAC(todolistId))
+    const removeTodolistItem = (todolistId: string) => {
+        dispatchTodolists(removeTodolistAC(todolistId))
+        delete tasks.todolistId
+    }
+    console.log(tasks)
+    console.log(todolists)
     const changeTodolistTitle = (todolistId: string, title: string) => dispatchTodolists(changeTodolistTitleAC(todolistId, title))
 
     const todolistItem = todolists.length
