@@ -45,7 +45,6 @@ export const tasksReducer = (state: TasksType, action: actionType): TasksType =>
                 [action.payload.todolistId]: []
             }
         }
-
         default:
             return state
     }

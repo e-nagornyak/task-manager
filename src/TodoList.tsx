@@ -28,9 +28,8 @@ const TodoList = (props: TodoListPropsType) => {
                     const removeTask = () => props.removeTask(props.todolistId, task.id)
                     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(props.todolistId, task.id, e.currentTarget.checked)
 
-                    const changeTitleStatus = (newValue: string) => {
-                        props.changeTaskTitle(props.todolistId, task.id, newValue)
-                    }
+                    const changeTitleStatus = (newValue: string) => props.changeTaskTitle(props.todolistId, task.id, newValue)
+
 
                     return (
                         <li key={task.id} className={task.isDone ? 'isDone' : ''}>
@@ -56,17 +55,10 @@ const TodoList = (props: TodoListPropsType) => {
     const changeFilterHandlerCreator = (filter: FilterValueType) => {
         return () => props.cnangeFilter(props.todolistId, filter)
     }
-    const removeTodolistItemHandler = () => {
-        props.removeTodolistItem(props.todolistId)
-    }
+    const removeTodolistItemHandler = () => props.removeTodolistItem(props.todolistId)
+    const changeTodolistTitle = (title: string) => props.changeTodolistTile(props.todolistId, title)
+    const addTask = (title: string) => props.addTask(props.todolistId, title)
 
-    const changeTodolistTitle = (title: string) => {
-        props.changeTodolistTile(props.todolistId, title)
-    }
-
-    const addTask = (title: string) => {
-        props.addTask(props.todolistId, title)
-    }
 
     return (
         <div className={'container'}>
@@ -77,10 +69,12 @@ const TodoList = (props: TodoListPropsType) => {
             <AddItemForm addItem={addTask}/>
             {tasksList}
             <div className={'div-filter'}>
-                <Button size={'small'} variant={props.filter === 'all' ? 'outlined':'contained'} color={'success'} onClick={changeFilterHandlerCreator('all')}>All</Button>
-                <Button size={'small'} variant={props.filter === 'active' ? 'outlined':'contained'} color={'error'} onClick={changeFilterHandlerCreator('active')}>Active</Button>
-                <Button size={'small'} variant={props.filter === 'completed' ? 'outlined':'contained'} color={'secondary'} onClick={changeFilterHandlerCreator('completed')}>Completed</Button>
-
+                <Button size={'small'} variant={props.filter === 'all' ? 'outlined' : 'contained'} color={'success'}
+                        onClick={changeFilterHandlerCreator('all')}>All</Button>
+                <Button size={'small'} variant={props.filter === 'active' ? 'outlined' : 'contained'} color={'error'}
+                        onClick={changeFilterHandlerCreator('active')}>Active</Button>
+                <Button size={'small'} variant={props.filter === 'completed' ? 'outlined' : 'contained'}
+                        color={'secondary'} onClick={changeFilterHandlerCreator('completed')}>Completed</Button>
 
 
                 {/*<button className={props.filter === 'all' ? 'btn-active' : ''} onClick={changeFilterHandlerCreator('all')}                > All                </button>*/}

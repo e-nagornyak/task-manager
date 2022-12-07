@@ -80,10 +80,8 @@ function App() {
     }
     const removeTodolistItem = (todolistId: string) => {
         dispatchTodolists(removeTodolistAC(todolistId))
-        delete tasks.todolistId
+        delete tasks[todolistId]
     }
-    console.log(tasks)
-    console.log(todolists)
     const changeTodolistTitle = (todolistId: string, title: string) => dispatchTodolists(changeTodolistTitleAC(todolistId, title))
 
     const todolistItem = todolists.length
