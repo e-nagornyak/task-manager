@@ -34,13 +34,7 @@ const TodoList = (props: TodoListPropsType) => {
                     return (
                         <li key={task.id} className={task.isDone ? 'isDone' : ''}>
                             <Checkbox onChange={changeTaskStatus} checked={task.isDone}/>
-                            {/*<input*/}
-                            {/*    onChange={changeTaskStatus}*/}
-                            {/*    type="checkbox"*/}
-                            {/*    checked={task.isDone}/>*/}
                             <EditableSpan title={task.title} onChange={changeTitleStatus}/>
-                            {/*<button onClick={removeTask}>x</button>*/}
-                            {/*<Button variant={'contained'} color={'primary'} onClick={removeTask}>X</Button>*/}
                             <IconButton onClick={removeTask} aria-label="delete">
                                 <BackspaceIcon color={'action'}/>
                             </IconButton>
@@ -49,7 +43,7 @@ const TodoList = (props: TodoListPropsType) => {
                 })
             }
         </ul>
-        : <span>Your list is empty</span>
+        : <span className={'list_empty'}>Your list is empty</span>
 
 
     const changeFilterHandlerCreator = (filter: FilterValueType) => {

@@ -50,3 +50,17 @@
 /*    font-weight: bold;*/
 /*    color: red;*/
 /*}*/
+
+.warning {
+    border: 1px solid red;
+    padding: 5px 30px;
+    margin-top: 40px;
+    margin-left: 25px;
+    color: red;
+}
+
+.list_empty {
+    display: inline-block;
+    margin: 20px 0;
+    color: red;
+}
