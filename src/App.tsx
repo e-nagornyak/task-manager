@@ -9,28 +9,18 @@ import Grid from '@mui/material/Grid';
 import Paper from "@mui/material/Paper";
 import {
     addTaskAC,
-    addTaskForNewTodolistAC,
     changeTaskStatusAc,
     changeTaskTitleAC,
     removeTaskAC,
-    tasksReducer
 } from "./reducers/tasksReducer";
 import {
     addTodolistAC,
     changeTaskFilterAC,
     changeTodolistTitleAC,
     removeTodolistAC,
-    todolistsReducer
 } from "./reducers/todolistsReducer";
 import {AppRootStateType} from "./redux/store";
 import {useDispatch, useSelector} from "react-redux";
-import {TodolistWithRedux} from "./TodolistWithRedux";
-
-//CRUD
-// Create
-// Reade => part, pagination, filtration, sort
-// Update
-// Delete
 
 export type FilterValueType = 'all' | 'active' | 'completed'
 
@@ -54,6 +44,7 @@ function App() {
     let todolists = useSelector<AppRootStateType, TodolistsType[]>(state => state.todolists)
     let tasks = useSelector<AppRootStateType, TasksType>(state => state.tasks)
     const dispatch = useDispatch()
+
     // Task reducers
     const removeTask = (todolistId: string, taskId: string) => dispatch(removeTaskAC(todolistId, taskId))
     const addTask = (todolistId: string, title: string) => dispatch(addTaskAC(todolistId, title))
@@ -67,6 +58,7 @@ function App() {
         dispatch(removeTodolistAC(todolistId))
         // delete tasks[todolistId]
     }
+
     const changeTodolistTitle = (todolistId: string, title: string) => dispatch(changeTodolistTitleAC(todolistId, title))
     const todolistItem = todolists.length
         ?
@@ -98,7 +90,6 @@ function App() {
                             removeTodolistItem={removeTodolistItem}
                             changeTodolistTile={changeTodolistTitle}
                         />
-
                     </Paper>
                 </Grid>
             )
@@ -117,7 +108,6 @@ function App() {
                 </Grid>
                 <Grid container spacing={3}>
                     {todolistItem}
-                    {/*<TodolistWithRedux todolist={todolists}/>*/}
                 </Grid>
             </Container>
         </div>

@@ -1,11 +1,11 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from "react";
 import {Button, TextField} from "@mui/material";
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
-export const AddItemForm = (props: AddItemFormPropsType) => {
+export const AddItemForm = memo((props: AddItemFormPropsType) => {
     const [error, setError] = useState<boolean>(false)
     const [title, setTitle] = useState<string>('')
 
@@ -40,8 +40,6 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
             <Button onClick={onClickAddTask} variant="text" startIcon={<LibraryAddIcon/>}>
                 Add
             </Button>
-            {/*<button >+</button>*/}
-            {/*{error && <div className={"errorTitle"}>Title is required</div>}*/}
         </div>
     )
-}
+})

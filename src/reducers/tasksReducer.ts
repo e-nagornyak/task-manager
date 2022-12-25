@@ -13,51 +13,38 @@ type actionType =
 const initialState: TasksType = {}
 export const tasksReducer = (state: TasksType = initialState, action: actionType): TasksType => {
     switch (action.type) {
-        case "ADD-TODOLIST": {
-            return {
-                ...state,
-                [action.payload.todolistId]: []
-            }
-        }
-        case "REMOVE-TODOLIST": {
+        case "ADD-TODOLIST":
+            return {...state, [action.payload.todolistId]: []}
+        case "REMOVE-TODOLIST":
             delete state[action.payload.todolistId]
             return state
-        }
-        case 'REMOVE-TASK': {
+        case 'REMOVE-TASK':
             return {
                 ...state,
                 [action.payload.todolistId]: state[action.payload.todolistId].filter(el => el.id !== action.payload.taskId)
             }
-        }
-        case "ADD-TASK": {
+        case "ADD-TASK":
             let newTask: TaskType = {id: v1(), title: action.payload.title, isDone: false}
             return {
                 ...state,
                 [action.payload.todolistId]: [newTask, ...state[action.payload.todolistId]]
             }
-        }
-        case "CHANGE-TASK-STATUS": {
+        case "CHANGE-TASK-STATUS":
             return {
                 ...state,
                 [action.payload.todolistId]: state[action.payload.todolistId].map(el => el.id === action.payload.taskId
                     ? {...el, isDone: action.payload.isDone}
                     : el)
             }
-        }
-        case "CHANGE-TASK-TITLE": {
+        case "CHANGE-TASK-TITLE":
             return {
                 ...state,
                 [action.payload.todolistId]: state[action.payload.todolistId].map(el => el.id === action.payload.taskId
                     ? {...el, title: action.payload.newTitle}
                     : el)
             }
-        }
-        case "ADD-TASK-FOR-TODOLIST": {
-            return {
-                ...state,
-                [action.payload.todolistId]: []
-            }
-        }
+        case "ADD-TASK-FOR-TODOLIST":
+            return {...state, [action.payload.todolistId]: []}
         default:
             return state
     }
