@@ -1,9 +1,9 @@
-import React, {memo, useCallback} from 'react';
+import React, {memo, useCallback, useMemo} from 'react';
 import {FilterValueType, TaskType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button} from "@mui/material";
-import {Task} from "./Task";
+import {TaskWithRedux} from "./TaskWithRedux";
 
 type TodoListPropsType = {
     todolistId: string
@@ -19,27 +19,27 @@ type TodoListPropsType = {
     changeTodolistTile: (todolistId: string, title: string) => void
 }
 
-const TodoList = memo((props: TodoListPropsType) => {
+export const TodoList = memo((props: TodoListPropsType) => {
     console.log("Todolist rendering")
 
     let tasks = props.tasks
-    if (props.filter === 'active') tasks = tasks.filter(t => !t.isDone)
-    if (props.filter === 'completed') tasks = tasks.filter(t => t.isDone)
 
-    const removeTask = useCallback((taskId: string) => props.removeTask(props.todolistId, taskId), [props.removeTask, props.todolistId])
-    const changeTaskStatus = useCallback((taskId: string, isDone: boolean) => props.changeTaskStatus(props.todolistId, taskId, isDone), [props.changeTaskStatus, props.todolistId])
-    const changeTitleStatus = useCallback((taskId: string, newTitle: string) => props.changeTaskTitle(props.todolistId, taskId, newTitle), [props.changeTaskTitle, props.todolistId])
+    tasks = useMemo(() => {
+        if (props.filter === 'active') tasks = tasks.filter(t => !t.isDone)
+        if (props.filter === 'completed') tasks = tasks.filter(t => t.isDone)
+
+        return tasks
+    }, [props.filter, tasks])
 
     const tasksList = props.tasks.length
         ?
         <ul>
             {
                 tasks.map((task) => {
-                    return <Task
+                    return <TaskWithRedux
+                        key={task.id}
                         task={task}
-                        removeTask={removeTask}
-                        changeTaskStatus={changeTaskStatus}
-                        changeTaskTitle={changeTitleStatus}
+                        todolistId={props.todolistId}
                     />
                 })
             }
@@ -63,15 +63,36 @@ const TodoList = memo((props: TodoListPropsType) => {
             <AddItemForm addItem={addTask}/>
             {tasksList}
             <div className={'div-filter'}>
-                <Button size={'small'} variant={props.filter === 'all' ? 'outlined' : 'contained'} color={'success'}
-                        onClick={changeFilterHandlerCreator('all')}>All</Button>
-                <Button size={'small'} variant={props.filter === 'active' ? 'outlined' : 'contained'} color={'error'}
-                        onClick={changeFilterHandlerCreator('active')}>Active</Button>
-                <Button size={'small'} variant={props.filter === 'completed' ? 'outlined' : 'contained'}
-                        color={'secondary'} onClick={changeFilterHandlerCreator('completed')}>Completed</Button>
+                <ButtonMemo title={'All'} size={'small'} color={'success'}
+                            variant={props.filter === 'all' ? 'outlined' : 'contained'}
+                            onClick={changeFilterHandlerCreator("all")}/>
+                <ButtonMemo title={'Active'} size={'small'} color={'error'}
+                            variant={props.filter === 'active' ? 'outlined' : 'contained'}
+                            onClick={changeFilterHandlerCreator("active")}/>
+                <ButtonMemo title={'Completed'} size={'small'} color={'secondary'}
+                            variant={props.filter === 'completed' ? 'outlined' : 'contained'}
+                            onClick={changeFilterHandlerCreator("completed")}/>
             </div>
         </div>
     );
 });
 
-export default TodoList;
+type ButtonMemoPropsType = {
+    title: string
+    size?: 'small' | 'medium' | 'large'
+    color: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
+    variant: 'text' | 'outlined' | 'contained'
+    onClick: () => void
+}
+
+const ButtonMemo = memo((props: ButtonMemoPropsType) => {
+    return (
+        <Button
+            size={props.size}
+            variant={props.variant}
+            color={props.color}
+            onClick={props.onClick}
+        > {props.title}
+        </Button>
+    )
+})

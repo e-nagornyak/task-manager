@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import TodoList from "./TodoList";
+import {TodoList} from "./TodoList";
 import './css/App.css';
 import {AddItemForm} from "./AddItemForm";
 import ButtonAppBar from "./ButtonAppBar";
@@ -34,6 +34,7 @@ export type TaskType = {
     title: string
     isDone: boolean
 }
+
 export type TasksType = {
     [key: string]: TaskType[]
 }
