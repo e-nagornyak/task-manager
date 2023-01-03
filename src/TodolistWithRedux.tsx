@@ -1,5 +1,4 @@
 import React, {ChangeEvent} from 'react';
-import {FilterValueType, TaskType, TodolistsType} from "./App";
 import {AppRootStateType} from "./redux/store";
 import {useDispatch, useSelector} from "react-redux";
 import {Button, Checkbox, IconButton} from "@mui/material";
@@ -7,10 +6,16 @@ import {EditableSpan} from "./EditableSpan";
 import {AddItemForm} from "./AddItemForm";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./reducers/tasksReducer";
-import {changeTaskFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./reducers/todolistsReducer";
+import {
+    changeTaskFilterAC,
+    changeTodolistTitleAC, FilterValueType,
+    removeTodolistAC,
+    TodolistDomainType
+} from "./reducers/todolistsReducer";
+import {TaskStatuses, TaskType} from "./api/todolists-api";
 
 type TodolistWithReduxPropsType = {
-    todolist: TodolistsType
+    todolist: TodolistDomainType
 }
 export const TodolistWithRedux = (props: TodolistWithReduxPropsType) => {
     const dispatch = useDispatch()
@@ -18,10 +23,10 @@ export const TodolistWithRedux = (props: TodolistWithReduxPropsType) => {
     let tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[id])
 
     if (filter === 'active') {
-        tasks = tasks.filter(t => !t.isDone)
+        tasks = tasks.filter(t => t.status === TaskStatuses.New)
     }
     if (filter === 'completed') {
-        tasks = tasks.filter(t => t.isDone)
+        tasks = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
 
@@ -31,13 +36,13 @@ export const TodolistWithRedux = (props: TodolistWithReduxPropsType) => {
             {
                 tasks.map((task) => {
                     const removeTask = () => dispatch(removeTaskAC(id, task.id))
-                    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(id, task.id, e.currentTarget.checked))
+                    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(id, task.id, (e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New)))
                     const changeTitleStatus = (newValue: string) => dispatch(changeTaskTitleAC(id, task.id, newValue))
 
 
                     return (
-                        <li key={task.id} className={task.isDone ? 'isDone' : ''}>
-                            <Checkbox onChange={changeTaskStatus} checked={task.isDone}/>
+                        <li key={task.id} className={task.status === TaskStatuses.Completed ? 'isDone' : ''}>
+                            <Checkbox onChange={changeTaskStatus} checked={task.status === TaskStatuses.Completed}/>
                             <EditableSpan title={task.title} onChange={changeTitleStatus}/>
                             <IconButton onClick={removeTask} aria-label="delete">
                                 <BackspaceIcon color={'action'}/>
