@@ -20,20 +20,9 @@ import {
 } from "./reducers/todolistsReducer";
 import {AppRootStateType} from "./redux/store";
 import {useDispatch, useSelector} from "react-redux";
+import {TaskType, TodolistsType} from "./api/todolists-api";
 
 export type FilterValueType = 'all' | 'active' | 'completed'
-
-export type TodolistsType = {
-    id: string
-    title: string
-    filter: FilterValueType
-}
-
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
 
 export type TasksType = {
     [key: string]: TaskType[]
