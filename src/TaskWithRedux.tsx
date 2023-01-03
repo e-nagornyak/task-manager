@@ -4,7 +4,7 @@ import {Checkbox, IconButton} from "@mui/material";
 import {EditableSpan} from "./EditableSpan";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import {useDispatch} from "react-redux";
-import {changeTaskStatusAc, changeTaskTitleAC, removeTaskAC} from "./reducers/tasksReducer";
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./reducers/tasksReducer";
 
 type TaskPropsType = {
     task: TaskType
@@ -15,7 +15,7 @@ export const TaskWithRedux = memo(({task, todolistId}: TaskPropsType) => {
     const dispatch = useDispatch()
 
     const removeTask = () => dispatch(removeTaskAC(todolistId, task.id))
-    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAc(todolistId, task.id, e.currentTarget.checked))
+    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(todolistId, task.id, e.currentTarget.checked))
     const changeTitleStatus = (newValue: string) => dispatch(changeTaskTitleAC(todolistId, task.id, newValue))
 
     return (

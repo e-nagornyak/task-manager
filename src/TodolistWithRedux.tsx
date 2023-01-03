@@ -6,7 +6,7 @@ import {Button, Checkbox, IconButton} from "@mui/material";
 import {EditableSpan} from "./EditableSpan";
 import {AddItemForm} from "./AddItemForm";
 import BackspaceIcon from "@mui/icons-material/Backspace";
-import {addTaskAC, changeTaskStatusAc, changeTaskTitleAC, removeTaskAC} from "./reducers/tasksReducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./reducers/tasksReducer";
 import {changeTaskFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./reducers/todolistsReducer";
 
 type TodolistWithReduxPropsType = {
@@ -31,7 +31,7 @@ export const TodolistWithRedux = (props: TodolistWithReduxPropsType) => {
             {
                 tasks.map((task) => {
                     const removeTask = () => dispatch(removeTaskAC(id, task.id))
-                    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAc(id, task.id, e.currentTarget.checked))
+                    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(id, task.id, e.currentTarget.checked))
                     const changeTitleStatus = (newValue: string) => dispatch(changeTaskTitleAC(id, task.id, newValue))
 
 

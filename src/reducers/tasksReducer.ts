@@ -65,8 +65,8 @@ export const addTaskAC = (todolistId: string, title: string) => {
     } as const
 }
 
-type changeTaskStatusACType = ReturnType<typeof changeTaskStatusAc>
-export const changeTaskStatusAc = (todolistId: string, taskId: string, isDone: boolean) => {
+type changeTaskStatusACType = ReturnType<typeof changeTaskStatusAC>
+export const changeTaskStatusAC = (todolistId: string, taskId: string, isDone: boolean) => {
     return {
         type: 'CHANGE-TASK-STATUS',
         payload: {todolistId, taskId, isDone}

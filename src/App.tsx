@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import Paper from "@mui/material/Paper";
 import {
     addTaskAC,
-    changeTaskStatusAc,
+    changeTaskStatusAC,
     changeTaskTitleAC,
     removeTaskAC,
 } from "./reducers/tasksReducer";
@@ -48,7 +48,7 @@ function App() {
     // Task reducers
     const removeTask = useCallback((todolistId: string, taskId: string) => dispatch(removeTaskAC(todolistId, taskId)),[dispatch])
     const addTask = useCallback((todolistId: string, title: string) => dispatch(addTaskAC(todolistId, title)), [dispatch])
-    const changeTaskStatus = useCallback((todolistId: string, taskId: string, isDone: boolean) => dispatch(changeTaskStatusAc(todolistId, taskId, isDone)),[dispatch])
+    const changeTaskStatus = useCallback((todolistId: string, taskId: string, isDone: boolean) => dispatch(changeTaskStatusAC(todolistId, taskId, isDone)),[dispatch])
     const changeTaskTitle = useCallback((todolistId: string, taskId: string, newTitle: string) => dispatch(changeTaskTitleAC(todolistId, taskId, newTitle)),[dispatch])
     const cnangeTaskFilter = useCallback((todolistId: string, filter: FilterValueType) => dispatch(changeTaskFilterAC(todolistId, filter)),[dispatch])
 
