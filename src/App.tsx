@@ -11,13 +11,13 @@ import {
     changeTaskStatusAC,
     changeTaskTitleAC,
     removeTaskAC,
-} from "./reducers/tasksReducer";
+} from "./redux/reducers/tasksReducer";
 import {
     addTodolistAC,
     changeTaskFilterAC,
     changeTodolistTitleAC, FilterValueType,
     removeTodolistAC, TodolistDomainType,
-} from "./reducers/todolistsReducer";
+} from "./redux/reducers/todolistsReducer";
 import {AppRootStateType} from "./redux/store";
 import {useDispatch, useSelector} from "react-redux";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
@@ -46,6 +46,7 @@ function App() {
     const removeTodolistItem = useCallback((todolistId: string) => dispatch(removeTodolistAC(todolistId)), [dispatch])
     const changeTodolistTitle = useCallback((todolistId: string, title: string) => dispatch(changeTodolistTitleAC(todolistId, title)), [dispatch])
 
+    // Mapping Todolists
     const todolistItem = todolists.length
         ? todolists.map(tl => {
             return (

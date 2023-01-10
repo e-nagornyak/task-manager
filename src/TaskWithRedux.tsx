@@ -3,7 +3,7 @@ import {Checkbox, IconButton} from "@mui/material";
 import {EditableSpan} from "./EditableSpan";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import {useDispatch} from "react-redux";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./reducers/tasksReducer";
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./redux/reducers/tasksReducer";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
 
 type TaskPropsType = {

@@ -1,7 +1,7 @@
-import {TasksType} from "../App";
+import {TasksType} from "../../App";
 import {v1} from "uuid";
 import {addTodolistACType, removeTodolistACType} from "./todolistsReducer";
-import {TaskPriorities, TaskStatuses, TaskType} from "../api/todolists-api";
+import {TaskPriorities, TaskStatuses, TaskType} from "../../api/todolists-api";
 
 type actionType =
     removeTaskACType
