@@ -1,6 +1,6 @@
 import {combineReducers, legacy_createStore} from "redux";
-import {tasksReducer} from "./reducers/tasksReducer";
-import {todolistsReducer} from "./reducers/todolistsReducer";
+import {tasksReducer} from "./reducers/tasks-reducer";
+import {todolistsReducer} from "./reducers/todolists-reducer";
 
 
 const rootReducer = combineReducers({

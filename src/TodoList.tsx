@@ -3,7 +3,7 @@ import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button} from "@mui/material";
 import {TaskWithRedux} from "./TaskWithRedux";
-import {FilterValueType} from "./redux/reducers/todolistsReducer";
+import {FilterValueType} from "./redux/reducers/todolists-reducer";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
 
 type TodoListPropsType = {

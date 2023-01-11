@@ -5,13 +5,13 @@ import {Button, Checkbox, IconButton} from "@mui/material";
 import {EditableSpan} from "./EditableSpan";
 import {AddItemForm} from "./AddItemForm";
 import BackspaceIcon from "@mui/icons-material/Backspace";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./redux/reducers/tasksReducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./redux/reducers/tasks-reducer";
 import {
     changeTaskFilterAC,
     changeTodolistTitleAC, FilterValueType,
     removeTodolistAC,
     TodolistDomainType
-} from "./redux/reducers/todolistsReducer";
+} from "./redux/reducers/todolists-reducer";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
 
 type TodolistWithReduxPropsType = {

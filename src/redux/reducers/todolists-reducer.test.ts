@@ -4,7 +4,7 @@ import {
     setTodolistsAC,
     TodolistDomainType,
     todolistsReducer
-} from "./todolistsReducer";
+} from "./todolists-reducer";
 import {v1} from 'uuid';
 
 let todolistId1: string
