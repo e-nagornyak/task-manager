@@ -1,26 +1,28 @@
 import React, {ChangeEvent} from 'react';
-import {AppRootStateType} from "./redux/store";
-import {useDispatch, useSelector} from "react-redux";
 import {Button, Checkbox, IconButton} from "@mui/material";
-import {EditableSpan} from "./EditableSpan";
-import {AddItemForm} from "./AddItemForm";
+import {EditableSpan} from "../EditableSpan/EditableSpan";
+import {AddItemForm} from "../AddItemForm/AddItemForm";
 import BackspaceIcon from "@mui/icons-material/Backspace";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./redux/reducers/tasks-reducer";
 import {
-    changeTaskFilterAC,
-    changeTodolistTitleAC, FilterValueType,
-    removeTodolistAC,
-    TodolistDomainType
-} from "./redux/reducers/todolists-reducer";
-import {TaskStatuses, TaskType} from "./api/todolists-api";
+    addTaskAC,
+    changeTaskStatusAC,
+    changeTaskTitleAC,
+    removeTaskAC, TaskStatuses,
+    TaskType
+} from "../../redux/reducers/tasks-reducer";
+import {
+    changeTaskFilterAC, changeTodolistTitleAC, FilterValueType,
+    removeTodolistAC, TodolistDomainType
+} from "../../redux/reducers/todolists-reducer";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 
 type TodolistWithReduxPropsType = {
     todolist: TodolistDomainType
 }
 export const TodolistWithRedux = (props: TodolistWithReduxPropsType) => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const {id, title, filter} = props.todolist
-    let tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[id])
+    let tasks = useAppSelector<TaskType[]>(state => state.tasks[id])
 
     if (filter === 'active') {
         tasks = tasks.filter(t => t.status === TaskStatuses.New)

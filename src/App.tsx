@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
-import {TodoList} from "./TodoList";
+import React, {useCallback, useEffect} from 'react';
+import {TodoList} from "./components/Todolist/TodoList";
 import './css/App.css';
-import {AddItemForm} from "./AddItemForm";
-import ButtonAppBar from "./ButtonAppBar";
+import {AddItemForm} from "./components/AddItemForm/AddItemForm";
+import ButtonAppBar from "./components/ButtonAppBar/ButtonAppBar";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from "@mui/material/Paper";
@@ -10,31 +10,27 @@ import {
     addTaskAC,
     changeTaskStatusAC,
     changeTaskTitleAC,
-    removeTaskAC,
+    removeTaskAC, TaskStatuses, TaskType,
 } from "./redux/reducers/tasks-reducer";
 import {
     addTodolistAC,
     changeTaskFilterAC,
-    changeTodolistTitleAC, FilterValueType,
+    changeTodolistTitleAC, fetchTodolistsTC, FilterValueType,
     removeTodolistAC, TodolistDomainType,
 } from "./redux/reducers/todolists-reducer";
-import {AppRootStateType} from "./redux/store";
-import {useDispatch, useSelector} from "react-redux";
-import {TaskStatuses, TaskType} from "./api/todolists-api";
+import {useAppDispatch, useAppSelector} from "./hooks/hooks";
 
 
-export type TasksType = {
+export type TaskStateType = {
     [key: string]: TaskType[]
 }
 
 function App() {
-    // BLL (business logic layer):
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
+    let todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists)
+    let tasks = useAppSelector<TaskStateType>(state => state.tasks)
 
-    let todolists = useSelector<AppRootStateType, TodolistDomainType[]>(state => state.todolists)
-    let tasks = useSelector<AppRootStateType, TasksType>(state => state.tasks)
-
-    // Task reducers
+    // TASK
     const removeTask = useCallback((todolistId: string, taskId: string) => {
         dispatch(removeTaskAC(todolistId, taskId))
     }, [dispatch])
@@ -55,7 +51,7 @@ function App() {
         dispatch(changeTaskFilterAC(todolistId, filter))
     }, [dispatch])
 
-    // Todolist reducers
+    // TODOLIST
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistAC(title))
     }, [dispatch])
@@ -68,7 +64,11 @@ function App() {
         dispatch(changeTodolistTitleAC(todolistId, title))
     }, [dispatch])
 
-    // Mapping Todolists
+    useEffect(() => {
+        dispatch(fetchTodolistsTC())
+    }, [])
+
+    // MAP
     const todolistItem = todolists.length
         ? todolists.map(tl => {
             return (
@@ -88,7 +88,6 @@ function App() {
                             removeTodolistItem={removeTodolistItem}
                             changeTodolistTile={changeTodolistTitle}
                         />
-                        {/*<TodolistWithRedux todolist={todolists}/>*/}
                     </Paper>
                 </Grid>
             )

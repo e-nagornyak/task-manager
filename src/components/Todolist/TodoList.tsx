@@ -1,10 +1,11 @@
-import React, {memo, useCallback, useMemo} from 'react';
-import {AddItemForm} from "./AddItemForm";
-import {EditableSpan} from "./EditableSpan";
+import React, {memo, useCallback, useEffect, useMemo} from 'react';
+import {AddItemForm} from "../AddItemForm/AddItemForm";
+import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Button} from "@mui/material";
-import {TaskWithRedux} from "./TaskWithRedux";
-import {FilterValueType} from "./redux/reducers/todolists-reducer";
-import {TaskStatuses, TaskType} from "./api/todolists-api";
+import {TaskWithRedux} from "../TaskWithRedux/TaskWithRedux";
+import {fetchTodolistsTC, FilterValueType} from "../../redux/reducers/todolists-reducer";
+import {fetchTasksTC, TaskStatuses, TaskType} from "../../redux/reducers/tasks-reducer";
+import {useAppDispatch} from "../../hooks/hooks";
 
 type TodoListPropsType = {
     todolistId: string
@@ -22,6 +23,12 @@ type TodoListPropsType = {
 
 export const TodoList = memo((props: TodoListPropsType) => {
     let tasks = props.tasks
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchTasksTC(props.todolistId))
+    }, [])
 
     tasks = useMemo(() => {
         if (props.filter === 'active') tasks = tasks.filter(t => t.status === TaskStatuses.New)

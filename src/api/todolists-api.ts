@@ -1,34 +1,18 @@
-export type TodolistType = {
-    id: string
-    title: string
-    addedDate: string
-    order: number
-}
+import axios from "axios";
 
-export enum TaskStatuses {
-    New = 0,
-    InProgress = 1,
-    Completed = 2,
-    Draft = 3
-}
+const instance = axios.create({
+    baseURL: "https://social-network.samuraijs.com/api/1.1",
+    withCredentials: true,
+    headers: {
+        "API-KEY": "b5d66a17-e300-438a-836a-f262d6d4bfa6"
+    }
+})
 
-export enum TaskPriorities {
-    Low = 0,
-    Middle = 1,
-    Hi = 2,
-    Urgently = 3,
-    Later = 4
-}
-
-export type TaskType = {
-    description: string
-    title: string
-    status: TaskStatuses
-    priority: TaskPriorities
-    startDate: string
-    deadline: string
-    id: string
-    todoListId: string
-    order: number
-    addedDate: string
+export const todolistsApi = {
+    getTodolists() {
+        return instance.get('/todo-lists')
+    },
+    getTasks(todolistId: string) {
+        return instance.get(`/todo-lists/${todolistId}/tasks`)
+    }
 }
