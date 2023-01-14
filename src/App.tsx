@@ -19,7 +19,7 @@ import {
     removeTodolistAC, TodolistDomainType,
 } from "./redux/reducers/todolists-reducer";
 import {useAppDispatch, useAppSelector} from "./hooks/hooks";
-import {todolistsAPI} from "./api/todolists-a-p-i";
+import {todolistsApi} from "./api/todolists-api";
 
 
 export type TaskStateType = {

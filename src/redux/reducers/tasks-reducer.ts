@@ -2,7 +2,7 @@ import {TaskStateType} from "../../App";
 import {v1} from "uuid";
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistsACType} from "./todolists-reducer";
 import {AppThunk} from "../store";
-import {todolistsAPI} from "../../api/todolists-a-p-i";
+import {todolistsApi} from "../../api/todolists-api";
 
 export enum TaskStatuses {
     New = 0,
@@ -131,7 +131,7 @@ export const setTaskAC = (todolistId: string, tasks: TaskType[]) => {
 
 // TC
 export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch) => {
-    todolistsAPI.getTasks(todolistId)
+    todolistsApi.getTasks(todolistId)
         .then (res => {
             dispatch(setTaskAC(todolistId,res.data.items))
         })
