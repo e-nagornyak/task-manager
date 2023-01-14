@@ -19,6 +19,7 @@ import {
     removeTodolistAC, TodolistDomainType,
 } from "./redux/reducers/todolists-reducer";
 import {useAppDispatch, useAppSelector} from "./hooks/hooks";
+import {todolistsAPI} from "./api/todolists-a-p-i";
 
 
 export type TaskStateType = {
@@ -32,6 +33,8 @@ function App() {
 
     // TASK
     const removeTask = useCallback((todolistId: string, taskId: string) => {
+        // todolistsAPI
+
         dispatch(removeTaskAC(todolistId, taskId))
     }, [dispatch])
 

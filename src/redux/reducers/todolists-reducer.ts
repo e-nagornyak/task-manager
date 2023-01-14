@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {todolistsApi} from "../../api/todolists-api";
+import {todolistsAPI} from "../../api/todolists-a-p-i";
 import {AppThunk} from "../store";
 
 
@@ -76,7 +76,7 @@ export const setTodolistsAC = (todolists: TodolistType[]) => {
 
 // TC
 export const fetchTodolistsTC = (): AppThunk => (dispatch) => {
-    todolistsApi.getTodolists()
+    todolistsAPI.getTodolists()
         .then(res => {
             dispatch(setTodolistsAC(res.data))
         })

@@ -2,7 +2,7 @@ import {TaskStateType} from "../../App";
 import {v1} from "uuid";
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistsACType} from "./todolists-reducer";
 import {AppThunk} from "../store";
-import {todolistsApi} from "../../api/todolists-api";
+import {todolistsAPI} from "../../api/todolists-a-p-i";
 
 export enum TaskStatuses {
     New = 0,
@@ -105,10 +105,6 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             return copyState
         }
         case "SET-TASK": {
-            // const copyState = {...state}
-            //
-            // copyState[action.payload.todolistId] = action.payload.tasks
-            // return copyState
             return {...state, [action.payload.todolistId]: action.payload.tasks}
         }
         default:
@@ -135,7 +131,7 @@ export const setTaskAC = (todolistId: string, tasks: TaskType[]) => {
 
 // TC
 export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch) => {
-    todolistsApi.getTasks(todolistId)
+    todolistsAPI.getTasks(todolistId)
         .then (res => {
             dispatch(setTaskAC(todolistId,res.data.items))
         })
