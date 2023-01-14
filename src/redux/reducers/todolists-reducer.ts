@@ -3,13 +3,6 @@ import {todolistsApi} from "../../api/todolists-api";
 import {AppThunk} from "../store";
 
 
-export type TodolistType = {
-    id: string
-    title: string
-    addedDate: string
-    order: number
-}
-
 export type AddTodolistACType = ReturnType<typeof addTodolistAC>
 export type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>
 type ChangeTodolistTitleACType = ReturnType<typeof changeTodolistTitleAC>
@@ -23,8 +16,13 @@ type ActionsType =
     | ChangeTaskFilterACType
     | SetTodolistsACType
 
+export type TodolistType = {
+    id: string
+    title: string
+    addedDate: string
+    order: number
+}
 const initialState: TodolistDomainType[] = [];
-
 export type FilterValueType = 'all' | 'active' | 'completed'
 export type TodolistDomainType = TodolistType & { filter: FilterValueType }
 

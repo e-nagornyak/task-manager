@@ -7,9 +7,8 @@ import {
     changeTaskStatusAC,
     changeTaskTitleAC,
     removeTaskAC,
-    TaskStatuses,
-    TaskType
 } from "../../redux/reducers/tasks-reducer";
+import {TaskStatuses, TaskType} from "../../api/todolists-api";
 
 type TaskPropsType = {
     task: TaskType

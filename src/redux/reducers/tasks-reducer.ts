@@ -1,35 +1,10 @@
-import {TaskStateType} from "../../App";
 import {v1} from "uuid";
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistsACType} from "./todolists-reducer";
 import {AppThunk} from "../store";
-import {todolistsApi} from "../../api/todolists-api";
+import {TaskPriorities, TaskStatuses, TaskType, todolistsApi} from "../../api/todolists-api";
 
-export enum TaskStatuses {
-    New = 0,
-    InProgress = 1,
-    Completed = 2,
-    Draft = 3
-}
-
-export enum TaskPriorities {
-    Low = 0,
-    Middle = 1,
-    Hi = 2,
-    Urgently = 3,
-    Later = 4
-}
-
-export type TaskType = {
-    description: string
-    title: string
-    status: TaskStatuses
-    priority: TaskPriorities
-    startDate: string
-    deadline: string
-    id: string
-    todoListId: string
-    order: number
-    addedDate: string
+export type TaskStateType = {
+    [key: string]: TaskType[]
 }
 
 type RemoveTaskACType = ReturnType<typeof removeTaskAC>

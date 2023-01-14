@@ -7,14 +7,14 @@ import {
     addTaskAC,
     changeTaskStatusAC,
     changeTaskTitleAC,
-    removeTaskAC, TaskStatuses,
-    TaskType
+    removeTaskAC
 } from "../../redux/reducers/tasks-reducer";
 import {
     changeTaskFilterAC, changeTodolistTitleAC, FilterValueType,
     removeTodolistAC, TodolistDomainType
 } from "../../redux/reducers/todolists-reducer";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {TaskStatuses, TaskType} from "../../api/todolists-api";
 
 type TodolistWithReduxPropsType = {
     todolist: TodolistDomainType

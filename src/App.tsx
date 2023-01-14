@@ -10,7 +10,7 @@ import {
     addTaskAC,
     changeTaskStatusAC,
     changeTaskTitleAC,
-    removeTaskAC, TaskStatuses, TaskType,
+    removeTaskAC, TaskStateType,
 } from "./redux/reducers/tasks-reducer";
 import {
     addTodolistAC,
@@ -19,12 +19,9 @@ import {
     removeTodolistAC, TodolistDomainType,
 } from "./redux/reducers/todolists-reducer";
 import {useAppDispatch, useAppSelector} from "./hooks/hooks";
-import {todolistsApi} from "./api/todolists-api";
+import {TaskStatuses} from "./api/todolists-api";
 
 
-export type TaskStateType = {
-    [key: string]: TaskType[]
-}
 
 function App() {
     const dispatch = useAppDispatch()

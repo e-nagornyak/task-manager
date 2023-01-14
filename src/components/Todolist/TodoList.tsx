@@ -3,9 +3,10 @@ import {AddItemForm} from "../AddItemForm/AddItemForm";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Button} from "@mui/material";
 import {TaskWithRedux} from "../TaskWithRedux/TaskWithRedux";
-import {fetchTodolistsTC, FilterValueType} from "../../redux/reducers/todolists-reducer";
-import {fetchTasksTC, TaskStatuses, TaskType} from "../../redux/reducers/tasks-reducer";
+import {FilterValueType} from "../../redux/reducers/todolists-reducer";
+import {fetchTasksTC} from "../../redux/reducers/tasks-reducer";
 import {useAppDispatch} from "../../hooks/hooks";
+import {TaskStatuses, TaskType} from "../../api/todolists-api";
 
 type TodoListPropsType = {
     todolistId: string
