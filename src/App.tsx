@@ -9,18 +9,17 @@ import Paper from "@mui/material/Paper";
 import {
     addTaskAC,
     changeTaskStatusAC,
-    changeTaskTitleAC,
-    removeTaskAC, TaskStateType,
+    changeTaskTitleAC, removeTaskTC,
+    removeTaskAC, TaskStateType, addTaskTC,
 } from "./redux/reducers/tasks-reducer";
 import {
-    addTodolistAC,
+    addTodolistAC, createTodolistTC,
     changeTaskFilterAC,
     changeTodolistTitleAC, fetchTodolistsTC, FilterValueType,
-    removeTodolistAC, TodolistDomainType,
+    removeTodolistAC, removeTodolistTC, TodolistDomainType, changeTodolistTitleTC,
 } from "./redux/reducers/todolists-reducer";
 import {useAppDispatch, useAppSelector} from "./hooks/hooks";
-import {TaskStatuses} from "./api/todolists-api";
-
+import {TaskStatuses, todolistsApi} from "./api/todolists-api";
 
 
 function App() {
@@ -30,13 +29,11 @@ function App() {
 
     // TASK
     const removeTask = useCallback((todolistId: string, taskId: string) => {
-        // todolistsAPI
-
-        dispatch(removeTaskAC(todolistId, taskId))
+        dispatch(removeTaskTC(todolistId, taskId))
     }, [dispatch])
 
     const addTask = useCallback((todolistId: string, title: string) => {
-        dispatch(addTaskAC(todolistId, title))
+        dispatch(addTaskTC(todolistId, title))
     }, [dispatch])
 
     const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
@@ -53,15 +50,15 @@ function App() {
 
     // TODOLIST
     const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistAC(title))
+        dispatch(createTodolistTC(title))
     }, [dispatch])
 
-    const removeTodolistItem = useCallback((todolistId: string) => {
-        dispatch(removeTodolistAC(todolistId))
+    const removeTodolist = useCallback((todolistId: string) => {
+        dispatch(removeTodolistTC(todolistId))
     }, [dispatch])
 
     const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
-        dispatch(changeTodolistTitleAC(todolistId, title))
+        dispatch(changeTodolistTitleTC(todolistId, title))
     }, [dispatch])
 
     useEffect(() => {
@@ -85,7 +82,7 @@ function App() {
                             cnangeFilter={cnangeTaskFilter}
                             changeTaskStatus={changeTaskStatus}
                             changeTaskTitle={changeTaskTitle}
-                            removeTodolistItem={removeTodolistItem}
+                            removeTodolistItem={removeTodolist}
                             changeTodolistTile={changeTodolistTitle}
                         />
                     </Paper>

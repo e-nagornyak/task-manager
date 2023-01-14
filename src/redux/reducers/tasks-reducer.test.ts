@@ -1,8 +1,9 @@
 import {addTaskAC, removeTaskAC, setTaskAC, tasksReducer, TaskStateType} from "./tasks-reducer";
-import {TaskPriorities, TaskStatuses} from "../../api/todolists-api";
+import {TaskPriorities, TaskStatuses, TaskType} from "../../api/todolists-api";
 
 
-let startState: TaskStateType = {};
+let startState: TaskStateType = {}
+// let startTask: TaskType
 beforeEach(() => {
     startState = {
         'todolistID1': [
@@ -50,19 +51,44 @@ beforeEach(() => {
             },
         ]
     }
+    // startTask = {
+    //     description: '',
+    //     title: '',
+    //     status: TaskStatuses.New,
+    //     priority: TaskPriorities.Low,
+    //     startDate: '',
+    //     deadline: '',
+    //     id: '',
+    //     todoListId: '',
+    //     order: 0,
+    //     addedDate: '',
+    // }
 })
 test('Should be tasks deleted', () => {
     const endState = tasksReducer(startState, removeTaskAC('todolistID2', '1'))
 
     expect(endState['todolistID2'].length).toBe(4)
 })
+
 test('Should be tasks added', () => {
-    let newTitle = 'What new?'
-    const endState = tasksReducer(startState, addTaskAC('todolistID2', newTitle))
+    const endState = tasksReducer(startState, addTaskAC({
+            todoListId: 'todolistID2',
+            description: 'It`s test',
+            title: 'Test',
+            status: TaskStatuses.New,
+            priority: TaskPriorities.Low,
+            startDate: '',
+            deadline: '',
+            id: 'dadasdasdaadad',
+            order: 0,
+            addedDate: '',
+    }))
 
     expect(endState['todolistID2'].length).toBe(6)
     expect(endState['todolistID1'].length).toBe(5)
-    expect(endState['todolistID2'][0].title).toBe('What new?')
+    expect(endState['todolistID2'][0].id).toBeDefined()
+    expect(endState['todolistID2'][0].title).toBe('Test')
+    expect(endState['todolistID2'][0].status).toBe(TaskStatuses.New)
 })
 //
 // test('status of specified task should be changed', () => {

@@ -29,13 +29,7 @@ export type TodolistDomainType = TodolistType & { filter: FilterValueType }
 export const todolistsReducer = (state: TodolistDomainType[] = initialState, action: ActionsType): TodolistDomainType[] => {
     switch (action.type) {
         case 'ADD-TODOLIST': {
-            let newTodolist: TodolistDomainType = {
-                id: action.payload.todolistId,
-                title: action.payload.title,
-                filter: 'all',
-                addedDate: '',
-                order: 0
-            }
+            const newTodolist: TodolistDomainType = {...action.payload.todolist, filter: 'all'}
             return [newTodolist, ...state]
         }
         case "REMOVE-TODOLIST": {
@@ -56,8 +50,8 @@ export const todolistsReducer = (state: TodolistDomainType[] = initialState, act
 }
 
 // AC
-export const addTodolistAC = (title: string) => {
-    return {type: 'ADD-TODOLIST', payload: {title, todolistId: v1()}} as const
+export const addTodolistAC = (todolist: TodolistType) => {
+    return {type: 'ADD-TODOLIST', payload: {todolist}} as const
 }
 export const removeTodolistAC = (todolistId: string) => {
     return {type: 'REMOVE-TODOLIST', payload: {todolistId}} as const
@@ -77,5 +71,25 @@ export const fetchTodolistsTC = (): AppThunk => (dispatch) => {
     todolistsApi.getTodolists()
         .then(res => {
             dispatch(setTodolistsAC(res.data))
+        })
+}
+
+export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => {
+    todolistsApi.deleteTodolist(todolistId)
+        .then(res => {
+            dispatch(removeTodolistAC(todolistId))
+        })
+}
+
+export const createTodolistTC = (title: string): AppThunk => (dispatch) => {
+    todolistsApi.createTodolist(title)
+        .then(res => {
+            dispatch(addTodolistAC(res.data.data.item))
+        })
+}
+export const changeTodolistTitleTC = (todolistId: string, title: string): AppThunk => (dispatch) => {
+    todolistsApi.updateTodolist(todolistId, title)
+        .then(res => {
+
         })
 }

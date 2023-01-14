@@ -2,11 +2,11 @@ import React, {memo, useCallback, useEffect, useMemo} from 'react';
 import {AddItemForm} from "../AddItemForm/AddItemForm";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Button} from "@mui/material";
-import {TaskWithRedux} from "../TaskWithRedux/TaskWithRedux";
 import {FilterValueType} from "../../redux/reducers/todolists-reducer";
 import {fetchTasksTC} from "../../redux/reducers/tasks-reducer";
 import {useAppDispatch} from "../../hooks/hooks";
 import {TaskStatuses, TaskType} from "../../api/todolists-api";
+import {Task} from "../Task/Task";
 
 type TodoListPropsType = {
     todolistId: string
@@ -43,11 +43,19 @@ export const TodoList = memo((props: TodoListPropsType) => {
         <ul>
             {
                 tasks.map((task) => {
-                    return <TaskWithRedux
+                    return <Task
                         key={task.id}
                         task={task}
                         todolistId={props.todolistId}
-                    />
+                        removeTask={props.removeTask}
+                        changeTaskStatus={props.changeTaskStatus}
+                        changeTaskTitle={props.changeTaskTitle}
+                        />
+                    // <TaskWithRedux
+                    //     key={task.id}
+                    //     task={task}
+                    //     todolistId={props.todolistId}
+                    // />
                 })
             }
         </ul>
@@ -57,9 +65,15 @@ export const TodoList = memo((props: TodoListPropsType) => {
     const changeFilterHandlerCreator = (filter: FilterValueType) => {
         return () => props.cnangeFilter(props.todolistId, filter)
     }
-    const removeTodolistItemHandler = () => props.removeTodolistItem(props.todolistId)
-    const changeTodolistTitle = (title: string) => props.changeTodolistTile(props.todolistId, title)
-    const addTask = useCallback((title: string) => props.addTask(props.todolistId, title), [props.addTask, props.todolistId])
+    const removeTodolistItemHandler = () => {
+        props.removeTodolistItem(props.todolistId)
+    }
+    const changeTodolistTitle = (title: string) => {
+        props.changeTodolistTile(props.todolistId, title)
+    }
+    const addTask = useCallback((title: string) => {
+        props.addTask(props.todolistId, title)
+    }, [props.addTask, props.todolistId])
 
     return (
         <div className={'container'}>
