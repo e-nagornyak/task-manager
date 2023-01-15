@@ -4,8 +4,7 @@ import {EditableSpan} from "../EditableSpan/EditableSpan";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import {useDispatch} from "react-redux";
 import {
-    changeTaskStatusAC,
-    changeTaskTitleAC,
+    updateTaskAC,
     removeTaskAC,
 } from "../../redux/reducers/tasks-reducer";
 import {TaskStatuses, TaskType} from "../../api/todolists-api";
@@ -20,10 +19,10 @@ export const TaskWithRedux = memo(({task, todolistId}: TaskPropsType) => {
 
     const removeTask = () => dispatch(removeTaskAC(todolistId, task.id))
     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeTaskStatusAC(todolistId, task.id, (e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New)))
+        dispatch(updateTaskAC(todolistId, task.id, {status: (e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New)}))
     }
     const changeTitleStatus = (newValue: string) => {
-        dispatch(changeTaskTitleAC(todolistId, task.id, newValue))
+        dispatch(updateTaskAC(todolistId, task.id, {title: newValue}))
     }
 
     return (

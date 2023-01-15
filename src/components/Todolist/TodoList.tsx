@@ -7,6 +7,8 @@ import {fetchTasksTC} from "../../redux/reducers/tasks-reducer";
 import {useAppDispatch} from "../../hooks/hooks";
 import {TaskStatuses, TaskType} from "../../api/todolists-api";
 import {Task} from "../Task/Task";
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from "@mui/material/IconButton";
 
 type TodoListPropsType = {
     todolistId: string
@@ -40,7 +42,7 @@ export const TodoList = memo((props: TodoListPropsType) => {
 
     const tasksList = props.tasks.length
         ?
-        <ul>
+        <>
             {
                 tasks.map((task) => {
                     return <Task
@@ -58,7 +60,7 @@ export const TodoList = memo((props: TodoListPropsType) => {
                     // />
                 })
             }
-        </ul>
+        </>
         : <span className={'list_empty'}>Your list is empty</span>
 
 
@@ -79,7 +81,10 @@ export const TodoList = memo((props: TodoListPropsType) => {
         <div className={'container'}>
             <h3>
                 <EditableSpan title={props.title} onChange={changeTodolistTitle}/>
-                <button onClick={removeTodolistItemHandler}>x</button>
+                {/*<Button onClick={removeTodolistItemHandler} variant="text" size={'small'} startIcon={<DeleteIcon/>}/>*/}
+                <IconButton onClick={removeTodolistItemHandler} aria-label="delete">
+                    <DeleteIcon />
+                </IconButton>
             </h3>
             <AddItemForm addItem={addTask}/>
             {tasksList}

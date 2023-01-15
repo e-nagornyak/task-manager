@@ -39,11 +39,11 @@ type GetTasksResponse = {
     totalCount: number
     items: TaskType[]
 }
-type UpdateTaskType = {
+export type UpdateTaskType = {
     title: string
     description: string
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
 }

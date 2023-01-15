@@ -27,7 +27,8 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
     }
 
     return (
-        <div>
+        <div style={{display: "flex",
+            alignItems: 'flex-end'}}>
             <TextField
                 id="outlined-basic"
                 label={error ? 'Title is required' : 'type your text'}

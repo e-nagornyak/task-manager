@@ -1,7 +1,6 @@
 import {
     addTaskAC,
-    changeTaskStatusAC,
-    changeTaskTitleAC,
+    updateTaskAC,
     removeTaskAC,
     setTaskAC,
     tasksReducer,
@@ -89,7 +88,7 @@ test('Should be tasks added', () => {
 })
 
 test('status of specified task should be changed', () => {
-    const action = changeTaskStatusAC('todolistId2', '2', TaskStatuses.Completed)
+    const action = updateTaskAC('todolistId2', '2', {status: TaskStatuses.Completed})
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId2'][1].status).toBe(TaskStatuses.Completed)
@@ -98,7 +97,7 @@ test('status of specified task should be changed', () => {
 
 
 test('should be updated new title of task', () => {
-    const action = changeTaskTitleAC('todolistId2', '2', 'New title')
+    const action = updateTaskAC('todolistId2', '2', {title: 'New title'})
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId2'][1].title).toBe('New title')
@@ -152,8 +151,6 @@ test('tasks should be added for todolist ', () => {
         'todolistId2': [],
         'todolistId1': [],
     }, action)
-
-    const keys = Object.keys(endState)
 
     expect(endState['todolistId1'].length).toBe(5)
     expect(endState['todolistId2'].length).toBe(0)

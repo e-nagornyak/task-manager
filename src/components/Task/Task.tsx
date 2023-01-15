@@ -26,7 +26,7 @@ export const Task = memo((props: TaskPropsType) => {
     }
 
     return (
-        <div className={props.task.status === TaskStatuses.Completed ? 'isDone' : ''}>
+        <div className={props.task.status === TaskStatuses.Completed ? 'isDone' : undefined}>
             <Checkbox onChange={changeTaskStatusHandler} checked={props.task.status === TaskStatuses.Completed}/>
             <EditableSpan title={props.task.title} onChange={changeTitleStatusHandler}/>
             <IconButton onClick={removeTaskHandler} aria-label="delete">
