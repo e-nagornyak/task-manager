@@ -6,7 +6,7 @@ import {
     tasksReducer,
     TaskStateType
 } from "./tasks-reducer";
-import {TaskPriorities, TaskStatuses} from "../../api/todolists-api";
+import {TaskPriorities, TaskStatuses} from "../../../../api/todolists-api";
 import {addTodolistAC, removeTodolistAC, setTodolistsAC} from "./todolists-reducer";
 
 

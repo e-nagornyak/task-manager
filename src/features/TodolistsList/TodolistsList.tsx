@@ -1,55 +1,49 @@
-import React, {useCallback, useEffect} from 'react';
-import {TodoList} from "./components/Todolist/TodoList";
-import './css/App.css';
-import {AddItemForm} from "./components/AddItemForm/AddItemForm";
-import ButtonAppBar from "./components/ButtonAppBar/ButtonAppBar";
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from "@mui/material/Paper";
-import {removeTaskTC, TaskStateType, addTaskTC, updateTaskTC,} from "./redux/reducers/tasks-reducer";
+import React, {useCallback, useEffect} from "react";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {
-    createTodolistTC, changeTaskFilterAC, fetchTodolistsTC, FilterValueType,
-    removeTodolistTC, TodolistDomainType, changeTodolistTitleTC,
-} from "./redux/reducers/todolists-reducer";
-import {useAppDispatch, useAppSelector} from "./hooks/hooks";
-import {TaskStatuses} from "./api/todolists-api";
+    changeTaskFilterAC,
+    changeTodolistTitleTC,
+    createTodolistTC, fetchTodolistsTC, FilterValueType,
+    removeTodolistTC,
+    TodolistDomainType
+} from "./Todolist/reducers/todolists-reducer";
+import {addTaskTC, removeTaskTC, TaskStateType, updateTaskTC} from "./Todolist/reducers/tasks-reducer";
+import {TaskStatuses} from "../../api/todolists-api";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import {TodoList} from "./Todolist/TodoList";
+import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 
+export const TodolistsList: React.FC = () => {
 
-function App() {
     const dispatch = useAppDispatch()
     let todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists)
     let tasks = useAppSelector<TaskStateType>(state => state.tasks)
 
-    // TODOLIST
+    // Fnc for todolist
     const addTodolist = useCallback((title: string) => {
         dispatch(createTodolistTC(title))
     }, [dispatch])
-
     const removeTodolist = useCallback((todolistId: string) => {
         dispatch(removeTodolistTC(todolistId))
     }, [dispatch])
-
     const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
         dispatch(changeTodolistTitleTC(todolistId, title))
     }, [dispatch])
 
-    // TASK
+    // Fnc for task
     const removeTask = useCallback((todolistId: string, taskId: string) => {
         dispatch(removeTaskTC(todolistId, taskId))
     }, [dispatch])
-
     const addTask = useCallback((todolistId: string, title: string) => {
         dispatch(addTaskTC(todolistId, title))
     }, [dispatch])
-
     const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
         dispatch(updateTaskTC(todolistId, taskId, {status}))
     }, [dispatch])
-
     const changeTaskTitle = useCallback((todolistId: string, taskId: string, newTitle: string) => {
         dispatch(updateTaskTC(todolistId, taskId, {title: newTitle}))
     }, [dispatch])
-
     const cnangeTaskFilter = useCallback((todolistId: string, filter: FilterValueType) => {
         dispatch(changeTaskFilterAC(todolistId, filter))
     }, [dispatch])
@@ -58,7 +52,7 @@ function App() {
         dispatch(fetchTodolistsTC())
     }, [])
 
-    // MAP
+    // Mapping
     const todolistItem = todolists.length
         ? todolists.map(tl => {
             return (
@@ -82,23 +76,16 @@ function App() {
                 </Grid>
             )
         })
-        :
-        <span className={'warning'}>Your list is empty</span>
+        : <span className={'warning'}>Your list is empty</span>
 
-    //GUI (graphical user interface):
     return (
-        <div className="App">
-            <ButtonAppBar/>
-            <Container fixed>
-                <Grid container>
-                    <AddItemForm addItem={addTodolist}/>
-                </Grid>
-                <Grid container spacing={3}>
-                    {todolistItem}
-                </Grid>
-            </Container>
+        <div>
+            <Grid container>
+                <AddItemForm addItem={addTodolist}/>
+            </Grid>
+            <Grid container spacing={3}>
+                {todolistItem}
+            </Grid>
         </div>
     )
 }
-
-export default App;

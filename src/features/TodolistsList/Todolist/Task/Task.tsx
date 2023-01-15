@@ -1,8 +1,8 @@
 import React, {ChangeEvent, memo} from 'react';
 import {Checkbox, IconButton} from "@mui/material";
-import {EditableSpan} from "../EditableSpan/EditableSpan";
+import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import BackspaceIcon from "@mui/icons-material/Backspace";
-import {TaskStatuses, TaskType} from "../../api/todolists-api";
+import {TaskStatuses, TaskType} from "../../../../api/todolists-api";
 
 type TaskPropsType = {
     task: TaskType

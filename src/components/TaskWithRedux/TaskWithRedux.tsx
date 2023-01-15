@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {
     updateTaskAC,
     removeTaskAC,
-} from "../../redux/reducers/tasks-reducer";
+} from "../../features/TodolistsList/Todolist/reducers/tasks-reducer";
 import {TaskStatuses, TaskType} from "../../api/todolists-api";
 
 type TaskPropsType = {
