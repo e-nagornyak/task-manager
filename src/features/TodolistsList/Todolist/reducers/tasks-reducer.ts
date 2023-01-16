@@ -1,6 +1,7 @@
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistsACType} from "./todolists-reducer";
 import {AppRootStateType, AppThunk} from "../../../../app/store";
 import {TaskPriorities, TaskStatuses, TaskType, todolistsApi, UpdateTaskType} from "../../../../api/todolists-api";
+import {setErrorAC} from "../../../../app/reducers/app-reducer";
 
 // State type
 export type TaskStateType = {
@@ -98,9 +99,17 @@ export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (d
 }
 
 export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispatch) => {
-    todolistsApi.createTask(todolistId, title)
+    todolistsApi.addTask(todolistId, title)
         .then(res => {
-            dispatch(addTaskAC(res.data.data.item))
+            if (res.data.resultCode === 0) {
+                dispatch(addTaskAC(res.data.data.item))
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setErrorAC(res.data.messages[0]))
+                } else{
+                    dispatch(setErrorAC('Some error occurred'))
+                }
+            }
         })
 }
 
