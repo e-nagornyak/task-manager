@@ -5,12 +5,15 @@ import Container from '@mui/material/Container';
 import {TodolistsList} from "../features/TodolistsList/TodolistsList";
 import {CustomizedSnackbars} from "../components/ErrorSnackbar/ErrorSnackbar";
 import LinearProgress from '@mui/material/LinearProgress';
+import {useAppSelector} from "../hooks/hooks";
 
 function App() {
+    const status = useAppSelector(state => state.app.status)
+
     return (
         <div className="App">
             <ButtonAppBar/>
-            <LinearProgress color="info" />
+            {status === 'loading' && <LinearProgress color="info"/>}
             <CustomizedSnackbars/>
             <Container fixed>
                 <TodolistsList/>

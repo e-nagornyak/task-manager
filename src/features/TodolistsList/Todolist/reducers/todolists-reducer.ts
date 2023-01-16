@@ -1,8 +1,9 @@
 import {todolistsApi} from "../../../../api/todolists-api";
 import {AppThunk} from "../../../../app/store";
+import {RequestStatusType, setStatusAC} from "../../../../app/reducers/app-reducer";
 
 // State type
-export type TodolistDomainType = TodolistType & { filter: FilterValueType }
+export type TodolistDomainType = TodolistType & { filter: FilterValueType, entityStatus: RequestStatusType}
 
 // Other types
 export type FilterValueType = 'all' | 'active' | 'completed'
@@ -32,7 +33,7 @@ const initialState: TodolistDomainType[] = [];
 export const todolistsReducer = (state: TodolistDomainType[] = initialState, action: ActionsType): TodolistDomainType[] => {
     switch (action.type) {
         case 'ADD-TODOLIST':
-            return [{...action.payload.todolist, filter: 'all'}, ...state]
+            return [{...action.payload.todolist, filter: 'all', entityStatus:'idle'}, ...state]
         case "REMOVE-TODOLIST":
             return state.filter(el => el.id !== action.payload.todolistId)
         case "CHANGE-TODOLIST-TITLE":
@@ -40,7 +41,7 @@ export const todolistsReducer = (state: TodolistDomainType[] = initialState, act
         case "CHANGE-TASK-FILTER":
             return state.map(el => el.id === action.payload.todolistId ? {...el, filter: action.payload.filter} : el)
         case "SET-TODOLISTS":
-            return action.payload.todolists.map(tl => ({...tl, filter: 'all'}))
+            return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
         default:
             return state
     }
@@ -60,9 +61,11 @@ export const setTodolistsAC = (todolists: TodolistType[]) =>
 
 // Thunks
 export const fetchTodolistsTC = (): AppThunk => (dispatch) => {
+    dispatch(setStatusAC("loading"))
     todolistsApi.getTodolists()
         .then(res => {
             dispatch(setTodolistsAC(res.data))
+            dispatch(setStatusAC("succeeded"))
         })
 }
 
@@ -73,10 +76,12 @@ export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => 
         })
 }
 
-export const createTodolistTC = (title: string): AppThunk => (dispatch) => {
-    todolistsApi.createTodolist(title)
+export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
+    dispatch(setStatusAC("loading"))
+    todolistsApi.addTodolist(title)
         .then(res => {
             dispatch(addTodolistAC(res.data.data.item))
+            dispatch(setStatusAC("succeeded"))
         })
 }
 

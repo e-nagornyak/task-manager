@@ -1,5 +1,5 @@
 // State type
-type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type InitialStateType = {
     // Щоб показати взаємодію з сервером
     status: RequestStatusType

@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {
     changeTaskFilterAC,
     changeTodolistTitleTC,
-    createTodolistTC, fetchTodolistsTC, FilterValueType,
+    addTodolistTC, fetchTodolistsTC, FilterValueType,
     removeTodolistTC,
     TodolistDomainType
 } from "./Todolist/reducers/todolists-reducer";
@@ -22,7 +22,7 @@ export const TodolistsList: React.FC = () => {
 
     // Fnc for todolist
     const addTodolist = useCallback((title: string) => {
-        dispatch(createTodolistTC(title))
+        dispatch(addTodolistTC(title))
     }, [dispatch])
     const removeTodolist = useCallback((todolistId: string) => {
         dispatch(removeTodolistTC(todolistId))

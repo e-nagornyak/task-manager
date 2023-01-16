@@ -1,7 +1,7 @@
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistsACType} from "./todolists-reducer";
 import {AppRootStateType, AppThunk} from "../../../../app/store";
 import {TaskPriorities, TaskStatuses, TaskType, todolistsApi, UpdateTaskType} from "../../../../api/todolists-api";
-import {setErrorAC} from "../../../../app/reducers/app-reducer";
+import {setErrorAC, setStatusAC} from "../../../../app/reducers/app-reducer";
 
 // State type
 export type TaskStateType = {
@@ -85,9 +85,11 @@ export const setTaskAC = (todolistId: string, tasks: TaskType[]) =>
 
 // Thunks
 export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch) => {
+    dispatch(setStatusAC("loading"))
     todolistsApi.getTasks(todolistId)
         .then(res => {
             dispatch(setTaskAC(todolistId, res.data.items))
+            dispatch(setStatusAC("succeeded"))
         })
 }
 
@@ -99,16 +101,19 @@ export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (d
 }
 
 export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispatch) => {
+    dispatch(setStatusAC("loading"))
     todolistsApi.addTask(todolistId, title)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(addTaskAC(res.data.data.item))
+                dispatch(setStatusAC("succeeded"))
             } else {
                 if (res.data.messages.length) {
                     dispatch(setErrorAC(res.data.messages[0]))
-                } else{
+                } else {
                     dispatch(setErrorAC('Some error occurred'))
                 }
+                dispatch(setStatusAC("failed"))
             }
         })
 }
