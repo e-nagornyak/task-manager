@@ -1,5 +1,5 @@
 import {
-    addTodolistAC, changeTodolistTitleAC,
+    addTodolistAC, setTodolistStatusAC, changeTodolistTitleAC,
     removeTodolistAC,
     setTodolistsAC,
     TodolistDomainType,
@@ -52,4 +52,12 @@ test('todolists should be set to the state', () => {
     const endState = todolistsReducer([], action)
 
     expect(endState.length).toBe(2)
+})
+
+test('todolist status should be changed', () => {
+    const action = setTodolistStatusAC(todolistId1, "loading")
+    const endState = todolistsReducer(startState, action)
+
+    expect(endState[0].entityStatus).toBe('loading')
+    expect(endState[1].entityStatus).toBe('idle')
 })

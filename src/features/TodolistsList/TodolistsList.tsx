@@ -14,11 +14,20 @@ import Paper from "@mui/material/Paper";
 import {TodoList} from "./Todolist/TodoList";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 
-export const TodolistsList: React.FC = () => {
+type TodolistsListPropsType = {
+    demo?: boolean
+}
+export const TodolistsList: React.FC<TodolistsListPropsType> = ({demo = false}) => {
 
     const dispatch = useAppDispatch()
     let todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists)
     let tasks = useAppSelector<TaskStateType>(state => state.tasks)
+
+    useEffect(() => {
+        if (!demo) {
+            dispatch(fetchTodolistsTC())
+        }
+    }, [])
 
     // Fnc for todolist
     const addTodolist = useCallback((title: string) => {
@@ -48,10 +57,6 @@ export const TodolistsList: React.FC = () => {
         dispatch(changeTaskFilterAC(todolistId, filter))
     }, [dispatch])
 
-    useEffect(() => {
-        dispatch(fetchTodolistsTC())
-    }, [])
-
     // Mapping
     const todolistItem = todolists.length
         ? todolists.map(tl => {
@@ -60,10 +65,9 @@ export const TodolistsList: React.FC = () => {
                     <Paper style={{padding: '10px'}}>
                         <TodoList
                             key={tl.id}
-                            todolistId={tl.id}
-                            title={tl.title}
+                            demo={demo}
+                            todolist={tl}
                             tasks={tasks[tl.id]}
-                            filter={tl.filter}
                             addTask={addTask}
                             removeTask={removeTask}
                             cnangeFilter={cnangeTaskFilter}

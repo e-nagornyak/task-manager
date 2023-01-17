@@ -7,7 +7,10 @@ import {CustomizedSnackbars} from "../components/ErrorSnackbar/ErrorSnackbar";
 import LinearProgress from '@mui/material/LinearProgress';
 import {useAppSelector} from "../hooks/hooks";
 
-function App() {
+type AppPropsType = {
+    demo?: boolean
+}
+const App: React.FC<AppPropsType> = ({demo = false}) => {
     const status = useAppSelector(state => state.app.status)
 
     return (
@@ -16,7 +19,7 @@ function App() {
             {status === 'loading' && <LinearProgress color="info"/>}
             <CustomizedSnackbars/>
             <Container fixed>
-                <TodolistsList/>
+                <TodolistsList demo={demo}/>
             </Container>
         </div>
     )

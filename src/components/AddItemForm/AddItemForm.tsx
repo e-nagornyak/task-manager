@@ -4,6 +4,7 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
 export const AddItemForm = memo((props: AddItemFormPropsType) => {
     const [error, setError] = useState<boolean>(false)
@@ -38,7 +39,7 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
                 onChange={onChangeSetLocalTitle}
                 onKeyDown={onKeyDownEnterAddTask}
             />
-            <Button onClick={onClickAddTask} variant="text" startIcon={<LibraryAddIcon/>}>
+            <Button disabled={props.disabled} onClick={onClickAddTask} variant="text" startIcon={<LibraryAddIcon/>}>
                 Add
             </Button>
         </div>
