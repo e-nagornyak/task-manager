@@ -22,7 +22,7 @@ type ChangeTodolistTitleACType = ReturnType<typeof changeTodolistTitleAC>
 type ChangeTaskFilterACType = ReturnType<typeof changeTaskFilterAC>
 type setTodolistStatusACType = ReturnType<typeof setTodolistStatusAC>
 
-type ActionsType =
+type TodolistRuducerActionsType =
     | AddTodolistACType
     | RemoveTodolistACType
     | ChangeTodolistTitleACType
@@ -32,7 +32,7 @@ type ActionsType =
 
 const initialState: TodolistDomainType[] = [];
 
-export const todolistsReducer = (state: TodolistDomainType[] = initialState, action: ActionsType): TodolistDomainType[] => {
+export const todolistsReducer = (state: TodolistDomainType[] = initialState, action: TodolistRuducerActionsType): TodolistDomainType[] => {
     switch (action.type) {
         case 'ADD-TODOLIST':
             return [{...action.payload.todolist, filter: 'all', entityStatus: 'idle'}, ...state]
