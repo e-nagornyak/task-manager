@@ -2,6 +2,7 @@ import {AddTodolistACType, RemoveTodolistACType, SetTodolistsACType} from "./tod
 import {AppRootStateType, AppThunk} from "../../../../app/store";
 import {TaskPriorities, TaskStatuses, TaskType, todolistsApi, UpdateTaskType} from "../../../../api/todolists-api";
 import {setAppErrorAC, setAppStatusAC} from "../../../../app/reducers/app-reducer";
+import {handleServerAppError} from "../../../../utils/error-utils";
 
 // State type
 export type TaskStateType = {
@@ -108,16 +109,12 @@ export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispa
                 dispatch(addTaskAC(res.data.data.item))
                 dispatch(setAppStatusAC("succeeded"))
             } else {
-                if (res.data.messages.length) {
-                    dispatch(setAppErrorAC(res.data.messages[0]))
-                } else {
-                    dispatch(setAppErrorAC('Some error occurred'))
-                }
-                dispatch(setAppStatusAC("failed"))
+                handleServerAppError(res.data, dispatch)
             }
         })
         .catch(error => {
-
+            dispatch(setAppErrorAC(error.message))
+            dispatch(setAppStatusAC("failed"))
         })
 }
 
@@ -140,6 +137,14 @@ export const updateTaskTC = (todolistId: string, taskId: string, model: UpdateTa
 
     todolistsApi.updateTask(todolistId, taskId, ApiModel)
         .then(res => {
-            dispatch(updateTaskAC(todolistId, taskId, model))
+            if (res.data.resultCode === 0) {
+                dispatch(updateTaskAC(todolistId, taskId, model))
+            } else {
+                handleServerAppError(res.data, dispatch)
+            }
+        })
+        .catch(error => {
+            dispatch(setAppErrorAC(error.message))
+            dispatch(setAppStatusAC("failed"))
         })
 }
