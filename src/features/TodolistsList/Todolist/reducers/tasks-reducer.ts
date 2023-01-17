@@ -116,6 +116,9 @@ export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispa
                 dispatch(setAppStatusAC("failed"))
             }
         })
+        .catch(error => {
+
+        })
 }
 
 export const updateTaskTC = (todolistId: string, taskId: string, model: UpdateTaskModelDomainType): AppThunk => (dispatch, getState: () => AppRootStateType) => {
