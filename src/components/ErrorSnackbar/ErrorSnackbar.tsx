@@ -11,10 +11,9 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export const CustomizedSnackbars = () => {
+export const ErrorSnackbars = () => {
     const dispatch = useAppDispatch()
-    const error = useAppSelector(state => state.app.error)
-    const isOpen = error !== null
+    const error = useAppSelector<null | string>(state => state.app.error)
 
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
@@ -25,7 +24,7 @@ export const CustomizedSnackbars = () => {
     };
 
     return (
-        <Snackbar open={isOpen} autoHideDuration={3000} onClose={handleClose}>
+        <Snackbar open={error !== null} autoHideDuration={3000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
                 {error}
             </Alert>

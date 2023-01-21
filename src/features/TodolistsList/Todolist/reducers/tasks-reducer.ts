@@ -1,7 +1,7 @@
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistsACType} from "./todolists-reducer";
 import {AppRootStateType, AppThunk} from "../../../../app/store";
 import {TaskPriorities, TaskStatuses, TaskType, todolistsApi, UpdateTaskType} from "../../../../api/todolists-api";
-import { setAppStatusAC} from "../../../../app/reducers/app-reducer";
+import {setAppStatusAC} from "../../../../app/reducers/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../../../utils/error-utils";
 
 // State type
@@ -97,13 +97,13 @@ export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch) => {
 export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     todolistsApi.removeTask(todolistId, taskId)
-        .then(res => {
+        .then(() => {
             dispatch(removeTaskAC(todolistId, taskId))
             dispatch(setAppStatusAC("succeeded"))
         })
         .catch(error => {
-        handleServerNetworkError(error, dispatch)
-    })
+            handleServerNetworkError(error, dispatch)
+        })
 }
 
 export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispatch) => {

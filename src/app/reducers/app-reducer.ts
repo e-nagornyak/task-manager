@@ -1,11 +1,11 @@
 // State type
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-export type InitialStateType = {
-    // Щоб показати взаємодію з сервером
-    status: RequestStatusType
-    // Якщо глобальна помилка - запишемо її текст сюди
-    error: string | null
-}
+// export type InitialStateType = {
+//     // Щоб показати взаємодію з сервером
+//     status: RequestStatusType
+//     // Якщо глобальна помилка - запишемо її текст сюди
+//     error: string | null
+// }
 
 // AC types
 type setAppErrorACType = ReturnType<typeof setAppErrorAC>
@@ -13,10 +13,16 @@ type setAppStatusACType = ReturnType<typeof setAppStatusAC>
 
 export type AppReducerActionsType = setAppErrorACType | setAppStatusACType
 
-const initialState: InitialStateType = {
-    status: "idle",
-    error: null
+// const initialState: InitialStateType = {
+//     status: "idle",
+//     error: null
+// }
+
+const initialState = {
+    status: 'idle' as RequestStatusType,
+    error: null as null | string
 }
+export type InitialStateType = typeof initialState
 
 export const appReducer = (state: InitialStateType = initialState, action: AppReducerActionsType): InitialStateType => {
     switch (action.type) {

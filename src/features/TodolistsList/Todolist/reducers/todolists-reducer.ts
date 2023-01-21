@@ -22,7 +22,7 @@ type ChangeTodolistTitleACType = ReturnType<typeof changeTodolistTitleAC>
 type ChangeTaskFilterACType = ReturnType<typeof changeTaskFilterAC>
 type setTodolistStatusACType = ReturnType<typeof setTodolistStatusAC>
 
-type TodolistRuducerActionsType =
+type TodolistReducerActionsType =
     | AddTodolistACType
     | RemoveTodolistACType
     | ChangeTodolistTitleACType
@@ -32,7 +32,7 @@ type TodolistRuducerActionsType =
 
 const initialState: TodolistDomainType[] = [];
 
-export const todolistsReducer = (state: TodolistDomainType[] = initialState, action: TodolistRuducerActionsType): TodolistDomainType[] => {
+export const todolistsReducer = (state: TodolistDomainType[] = initialState, action: TodolistReducerActionsType): TodolistDomainType[] => {
     switch (action.type) {
         case 'ADD-TODOLIST':
             return [{...action.payload.todolist, filter: 'all', entityStatus: 'idle'}, ...state]
@@ -79,7 +79,7 @@ export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => 
     dispatch(setAppStatusAC("loading"))
     dispatch(setTodolistStatusAC(todolistId, 'loading'))
     todolistsApi.deleteTodolist(todolistId)
-        .then(res => {
+        .then(() => {
             dispatch(removeTodolistAC(todolistId))
             dispatch(setAppStatusAC("succeeded"))
             dispatch(setTodolistStatusAC(todolistId, 'succeeded'))
@@ -99,7 +99,7 @@ export const changeTodolistTitleTC = (todolistId: string, title: string): AppThu
     dispatch(setAppStatusAC("loading"))
     dispatch(setTodolistStatusAC(todolistId, 'loading'))
     todolistsApi.updateTodolist(todolistId, title)
-        .then(res => {
+        .then(() => {
             dispatch(changeTodolistTitleAC(todolistId, title))
         })
 }
