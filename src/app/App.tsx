@@ -6,6 +6,8 @@ import {TodolistsList} from "../features/TodolistsList/TodolistsList";
 import {ErrorSnackbars} from "../components/ErrorSnackbar/ErrorSnackbar";
 import LinearProgress from '@mui/material/LinearProgress';
 import {useAppSelector} from "../hooks/hooks";
+import {Navigate, Route, Routes} from "react-router-dom";
+import {Login} from "../features/Login/Login";
 
 type AppPropsType = {
     demo?: boolean
@@ -19,7 +21,12 @@ const App: React.FC<AppPropsType> = ({demo = false}) => {
             {status === 'loading' && <LinearProgress color="info"/>}
             <ErrorSnackbars/>
             <Container fixed>
-                <TodolistsList demo={demo}/>
+                <Routes>
+                    <Route path={"/"} element={<TodolistsList/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/404'} element={<h1>404: PAGE NOT FOUND</h1>}/>
+                    <Route path={'*'} element={<Navigate to='/404'/>}/>
+                </Routes>
             </Container>
         </div>
     )

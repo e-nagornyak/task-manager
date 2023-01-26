@@ -1,7 +1,7 @@
 import {AddTodolistACType, RemoveTodolistACType, SetTodolistsACType} from "./todolists-reducer";
 import {AppRootStateType, AppThunk} from "../../../../app/store";
-import {TaskPriorities, TaskStatuses, TaskType, todolistsApi, UpdateTaskType} from "../../../../api/todolists-api";
-import {setAppStatusAC} from "../../../../app/reducers/app-reducer";
+import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskType} from "../../../../api/todolists-api";
+import {setAppStatusAC} from "../../../../app/reducer/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../../../utils/error-utils";
 
 // State type
@@ -87,7 +87,7 @@ export const setTaskAC = (todolistId: string, tasks: TaskType[]) =>
 // Thunks
 export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
-    todolistsApi.getTasks(todolistId)
+    todolistsAPI.getTasks(todolistId)
         .then(res => {
             dispatch(setTaskAC(todolistId, res.data.items))
             dispatch(setAppStatusAC("succeeded"))
@@ -96,7 +96,7 @@ export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch) => {
 
 export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
-    todolistsApi.removeTask(todolistId, taskId)
+    todolistsAPI.removeTask(todolistId, taskId)
         .then(() => {
             dispatch(removeTaskAC(todolistId, taskId))
             dispatch(setAppStatusAC("succeeded"))
@@ -108,7 +108,7 @@ export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (d
 
 export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
-    todolistsApi.addTask(todolistId, title)
+    todolistsAPI.addTask(todolistId, title)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(addTaskAC(res.data.data.item))
@@ -140,7 +140,7 @@ export const updateTaskTC = (todolistId: string, taskId: string, model: UpdateTa
         ...model
     }
 
-    todolistsApi.updateTask(todolistId, taskId, ApiModel)
+    todolistsAPI.updateTask(todolistId, taskId, ApiModel)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(updateTaskAC(todolistId, taskId, model))

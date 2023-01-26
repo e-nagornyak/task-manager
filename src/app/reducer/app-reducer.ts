@@ -8,8 +8,8 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 // }
 
 // AC types
-type setAppErrorACType = ReturnType<typeof setAppErrorAC>
-type setAppStatusACType = ReturnType<typeof setAppStatusAC>
+export type setAppErrorACType = ReturnType<typeof setAppErrorAC>
+export type setAppStatusACType = ReturnType<typeof setAppStatusAC>
 
 export type AppReducerActionsType = setAppErrorACType | setAppStatusACType
 

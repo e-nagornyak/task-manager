@@ -2,7 +2,7 @@ import React from 'react';
 import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import {tasksReducer} from "../features/TodolistsList/Todolist/reducers/tasks-reducer";
 import {todolistsReducer} from "../features/TodolistsList/Todolist/reducers/todolists-reducer";
-import {appReducer} from "../app/reducers/app-reducer";
+import {appReducer} from "../app/reducer/app-reducer";
 import {AppRootStateType} from "../app/store";
 import {TaskPriorities, TaskStatuses} from "../api/todolists-api";
 import {v1} from "uuid";
@@ -36,7 +36,8 @@ const initialGlobalState: AppRootStateType = {
             }
         ]
     },
-    app: {status: 'idle', error: null}
+    app: {status: 'idle', error: null},
+    auth: {isLoggedIn: false}
 }
 
 export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState, applyMiddleware(thunkMiddleware))
