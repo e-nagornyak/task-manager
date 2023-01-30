@@ -1,28 +1,25 @@
-// State type
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-// export type InitialStateType = {
-//     // Щоб показати взаємодію з сервером
-//     status: RequestStatusType
-//     // Якщо глобальна помилка - запишемо її текст сюди
-//     error: string | null
-// }
+// state type
+import {AppThunk} from "../store";
+import {authAPI} from "../../api/todolists-api";
+import {setIsLoggedInAC} from "../../features/Login/login-reducer";
 
-// AC types
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type InitialStateType = typeof initialState
+
+// actions types
 export type setAppErrorACType = ReturnType<typeof setAppErrorAC>
 export type setAppStatusACType = ReturnType<typeof setAppStatusAC>
-
-export type AppReducerActionsType = setAppErrorACType | setAppStatusACType
-
-// const initialState: InitialStateType = {
-//     status: "idle",
-//     error: null
-// }
-
+export type setAppInitializedACType = ReturnType<typeof setAppInitializedAC>
+export type AppReducerActionsType = setAppErrorACType | setAppStatusACType | setAppInitializedACType
+// state
 const initialState = {
+    // чи відбувається зараз взаємодія з сервером
     status: 'idle' as RequestStatusType,
-    error: null as null | string
+    // глобальні помилки
+    error: null as null | string,
+    // true коли відбулась ініціалізація (перевірка користувача)
+    isInitialized: false
 }
-export type InitialStateType = typeof initialState
 
 export const appReducer = (state: InitialStateType = initialState, action: AppReducerActionsType): InitialStateType => {
     switch (action.type) {
@@ -30,11 +27,29 @@ export const appReducer = (state: InitialStateType = initialState, action: AppRe
             return {...state, error: action.payload.error}
         case "APP/SET-STATUS":
             return {...state, status: action.payload.status}
+        case "APP/SET-IT-INITIALIZED":
+            return {...state, isInitialized: action.payload.value}
         default:
             return {...state}
     }
 }
+// actions
 export const setAppErrorAC = (error: string | null) =>
     ({type: 'APP/SET-ERROR', payload: {error}}) as const
 export const setAppStatusAC = (status: RequestStatusType) =>
     ({type: 'APP/SET-STATUS', payload: {status}}) as const
+export const setAppInitializedAC = (value: boolean) =>
+    ({type: 'APP/SET-IT-INITIALIZED', payload: {value}}) as const
+
+// thunks
+export const initializeAppTC = (): AppThunk => (dispatch) => {
+    authAPI.me()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setIsLoggedInAC(true))
+            } else {
+
+            }
+            dispatch(setAppInitializedAC(true))
+        })
+}

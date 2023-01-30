@@ -4,7 +4,7 @@ import {appReducer, InitialStateType, setAppErrorAC, setAppStatusAC} from "./app
 let startState: InitialStateType
 
 beforeEach(() => {
-    startState = {status: 'idle', error: null}
+    startState = {status: 'idle', error: null, isInitialized: false}
 })
 
 test('correct error message should be set',() => {

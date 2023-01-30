@@ -91,6 +91,9 @@ export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => 
             dispatch(setAppStatusAC("succeeded"))
             dispatch(setTodolistStatusAC(todolistId, 'succeeded'))
         })
+        .catch(error => {
+            handleServerNetworkError(error, dispatch)
+        })
 }
 
 export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
@@ -100,6 +103,9 @@ export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
             dispatch(addTodolistAC(res.data.data.item))
             dispatch(setAppStatusAC("succeeded"))
         })
+        .catch(error => {
+            handleServerNetworkError(error, dispatch)
+        })
 }
 
 export const changeTodolistTitleTC = (todolistId: string, title: string): AppThunk => (dispatch) => {
@@ -108,5 +114,10 @@ export const changeTodolistTitleTC = (todolistId: string, title: string): AppThu
     todolistsAPI.updateTodolist(todolistId, title)
         .then(() => {
             dispatch(changeTodolistTitleAC(todolistId, title))
+            dispatch(setAppStatusAC("succeeded"))
+            dispatch(setTodolistStatusAC(todolistId, 'succeeded'))
+        })
+        .catch(error => {
+            handleServerNetworkError(error, dispatch)
         })
 }

@@ -82,7 +82,7 @@ export const TodoList: React.FC<TodoListPropsType> = memo(({demo = false, ...pro
         <div className={'container'}>
             <h3>
                 <EditableSpan title={props.todolist.title} onChange={changeTodolistTitle}/>
-                <IconButton onClick={removeTodolistItemHandler} disabled={props.todolist.entityStatus == 'loading'} aria-label="delete">
+                <IconButton onClick={removeTodolistItemHandler} disabled={props.todolist.entityStatus === 'loading'} aria-label="delete">
                     <DeleteIcon/>
                 </IconButton>
             </h3>
