@@ -1,7 +1,7 @@
 // state type
 import {AppThunk} from "../store";
 import {authAPI} from "../../api/todolists-api";
-import {setIsLoggedInAC} from "../../features/Login/login-reducer";
+import {setIsLoggedInAC} from "../../features/Login/auth-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type InitialStateType = typeof initialState
