@@ -1,6 +1,16 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "baseUrl": "./src",
+    "paths": {
+      "api/*": [ "api/*" ],
+      "app/*": [ "app/*" ],
+      "assets/*": [ "assets/*" ],
+      "components/*": [ "components/*" ],
+      "features/*": [ "features/*" ],
+      "hooks/*": [ "hooks/*" ],
+      "utils/*": [ "utils/*" ],
+    },
     "lib": [
       "dom",
       "dom.iterable",
