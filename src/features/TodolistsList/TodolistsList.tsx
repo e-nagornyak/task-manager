@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper'
 import { Navigate } from 'react-router-dom'
 import { addTaskTC, removeTaskTC, TaskStateType, updateTaskTC } from './Todolist/reducers/tasks-reducer'
 import {
-  changeTaskFilterAC,
+  changeTaskFilter,
   changeTodolistTitleTC,
   addTodolistTC,
   fetchTodolistsTC,
@@ -68,7 +68,7 @@ export const TodolistsList: React.FC<TodolistsListPropsType> = ({ demo = false }
   )
   const cnangeTaskFilter = useCallback(
     (todolistId: string, filter: FilterValueType) => {
-      dispatch(changeTaskFilterAC(todolistId, filter))
+      dispatch(changeTaskFilter(todolistId, filter))
     },
     [dispatch]
   )

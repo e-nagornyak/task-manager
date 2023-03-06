@@ -5,14 +5,14 @@ export const TodolistWithRedux = {};
 // import {AddItemForm} from "../AddItemForm/AddItemForm";
 // import BackspaceIcon from "@mui/icons-material/Backspace";
 // import {
-//     addTaskAC,
+//     addTask,
 //     changeTaskStatusAC,
 //     changeTaskTitleAC,
-//     removeTaskAC
+//     removeTask
 // } from "../../redux/reducers/tasks-reducer";
 // import {
-//     changeTaskFilterAC, changeTodolistTitleAC, FilterValueType,
-//     removeTodolistAC, TodolistDomainType
+//     changeTaskFilter, changeTodolistTitle, FilterValueType,
+//     removeTodolist, TodolistDomainType
 // } from "../../redux/reducers/todolists-reducer";
 // import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 // import {TaskStatuses, TaskType} from "../../api/todolists-api";
@@ -38,7 +38,7 @@ export const TodolistWithRedux = {};
 //         <ul>
 //             {
 //                 tasks.map((task) => {
-//                     const removeTask = () => dispatch(removeTaskAC(id, task.id))
+//                     const removeTask = () => dispatch(removeTask(id, task.id))
 //                     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(id, task.id, (e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New)))
 //                     const changeTitleStatus = (newValue: string) => dispatch(changeTaskTitleAC(id, task.id, newValue))
 //
@@ -59,11 +59,11 @@ export const TodolistWithRedux = {};
 //
 //
 //     const changeFilterHandlerCreator = (filter: FilterValueType) => {
-//         return () => dispatch(changeTaskFilterAC(id, filter))
+//         return () => dispatch(changeTaskFilter(id, filter))
 //     }
-//     const removeTodolistItemHandler = () => dispatch(removeTodolistAC(id))
-//     const changeTodolistTitle = (title: string) => dispatch(changeTodolistTitleAC(id, title))
-//     const addTask = (title: string) => dispatch(addTaskAC(id, title))
+//     const removeTodolistItemHandler = () => dispatch(removeTodolist(id))
+//     const changeTodolistTitle = (title: string) => dispatch(changeTodolistTitle(id, title))
+//     const addTask = (title: string) => dispatch(addTask(id, title))
 //
 //     return (
 //         <div className={'container'}>

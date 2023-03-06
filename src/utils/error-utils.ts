@@ -1,17 +1,18 @@
 import { Dispatch } from 'redux'
 import { ResponseType } from 'api/types'
-import { AppReducerActionsType, setAppErrorAC, setAppStatusAC } from 'app/reducer/app-reducer'
+import { setAppError, setAppStatus } from 'app/reducer/app-reducer'
 
-export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch<AppReducerActionsType>) => {
+export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch) => {
   if (data.messages.length) {
-    dispatch(setAppErrorAC(data.messages[0]))
+    dispatch(setAppError({ error: data.messages[0] }))
   } else {
-    dispatch(setAppErrorAC('Some error occurred'))
+    dispatch(setAppError({ error: 'Some error occurred' }))
   }
-  dispatch(setAppStatusAC('failed'))
+  dispatch(setAppStatus({ status: 'failed' }))
 }
 
-export const handleServerNetworkError = (error: { message: string }, dispatch: Dispatch<AppReducerActionsType>) => {
-  dispatch(setAppErrorAC(error.message ? error.message : 'Some error occurred'))
-  dispatch(setAppStatusAC('failed'))
+export const handleServerNetworkError = (error: { message: string }, dispatch: Dispatch) => {
+  const errorMessage = error.message ? error.message : 'Some error occurred'
+  dispatch(setAppError({ error: errorMessage }))
+  dispatch(setAppStatus({ status: 'failed' }))
 }
