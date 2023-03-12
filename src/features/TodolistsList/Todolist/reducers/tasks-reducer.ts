@@ -5,6 +5,10 @@ import { AppRootStateType, AppThunk } from 'app/store'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { AxiosError } from 'axios'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import {
+  addTodolist,
+  removeTodolist, setTodolists
+} from 'features/TodolistsList/Todolist/reducers/todolists-reducer'
 
 export type TaskStateType = {
   [key: string]: TaskType[]
@@ -40,37 +44,24 @@ const slice = createSlice({
       tasks[index] = { ...tasks[index], ...action.payload.model }
     }
   },
-  extraReducers: {
-    [add]
+  extraReducers: (builder) => {
+    builder.addCase(addTodolist, (state, action) => {
+      state[action.payload.todolist.id] = []
+    })
+    builder.addCase(removeTodolist, (state, action) => {
+      delete state[action.payload.todolistId]
+    })
+    builder.addCase(setTodolists, (state, action) => {
+      action.payload.todolists.map(tl => {
+        state[tl.id] = []
+      })
+    })
   }
 })
 
 export const tasksReducer = slice.reducer
-// export const tasksReducer = (state: TaskStateType = initialState, action: TasksReducerActionsType): TaskStateType => {
-//   switch (action.type) {
-//     case 'SET-TASK': {
-//       return { ...state, [action.payload.todolistId]: action.payload.tasks }
-//     }
 
-//     case 'SET-TODOLISTS': {
-//       const copyState = { ...state }
-//       action.payload.todolists.forEach(tl => {
-//         copyState[tl.id] = []
-//       })
-//       return copyState
-//     }
-//     case 'ADD-TODOLIST':
-//       return { ...state, [action.payload.todolist.id]: [] }
-//     case 'REMOVE-TODOLIST': {
-//       const copyState = { ...state }
-//       delete copyState[action.payload.todolistId]
-//       return copyState
-//     }
-//     default:
-//       return state
-//   }
-// }
-const { setTasks, updateTask, addTask, removeTask } = slice.actions
+export const { setTasks, updateTask, addTask, removeTask } = slice.actions
 
 export const fetchTasksTC = (todolistId: string): AppThunk => async (dispatch) => {
   dispatch(setAppStatus({ status: 'loading' }))

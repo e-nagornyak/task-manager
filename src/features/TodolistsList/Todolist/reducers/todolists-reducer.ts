@@ -25,11 +25,11 @@ const slice = createSlice({
       state.unshift({ ...action.payload.todolist, filter: 'all', entityStatus: 'idle' })
     },
     removeTodolist(state, action: PayloadAction<{ todolistId: string }>) {
-      const index = state.findIndex(tl => tl.id === action.payload.todolistId)
-      if (index > -1) {
-        state.slice(index, 1)
-      }
-      // return state.filter(el => el.id !== action.payload.todolistId)
+      // const index = state.findIndex(tl => tl.id === action.payload.todolistId)
+      // if (index > -1) {
+      //   state.slice(index, 1)
+      // }
+      return state.filter(el => el.id !== action.payload.todolistId)
     },
     changeTodolistTitle(state, action: PayloadAction<{ todolistId: string, title: string }>) {
       const index = state.findIndex(tl => tl.id === action.payload.todolistId)
@@ -42,7 +42,11 @@ const slice = createSlice({
       // return state.map(tl => tl.id === action.payload.todolistId ? { ...tl, filter: action.payload.filter } : tl)
     },
     setTodolists(state, action: PayloadAction<{ todolists: TodolistType[] }>) {
-      return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
+      return action.payload.todolists.map(tl => ({
+        ...tl,
+        filter: 'all',
+        entityStatus: 'idle'
+      }))
     },
     setTodolistStatus(state, action: PayloadAction<{ todolistId: string, status: AppStatusType }>) {
       const index = state.findIndex(tl => tl.id === action.payload.todolistId)
@@ -75,7 +79,6 @@ export const removeTodolistTC = (todolistId: string): AppThunk => async (dispatc
     await todolistsAPI.deleteTodolist(todolistId)
     dispatch(removeTodolist({ todolistId }))
     dispatch(setAppStatus({ status: 'succeeded' }))
-    dispatch(setTodolistStatus({ todolistId, status: 'succeeded' }))
   } catch (error) {
     handleServerNetworkError(error as AxiosError, dispatch)
   }
