@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useMemo } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import { fetchTasksTC } from './reducers/tasks-reducer'
+import { fetchTasks } from './reducers/tasks-reducer'
 import { FilterValueType, TodolistDomainType } from './reducers/todolists-reducer'
 import { Task } from './Task/Task'
 import { TaskStatuses, TaskType } from 'api/types'
@@ -30,7 +30,7 @@ export const TodoList: React.FC<TodoListPropsType> = memo(({ demo = false, ...pr
 
   useEffect(() => {
     if (!demo) {
-      dispatch(fetchTasksTC(props.todolist.id))
+      dispatch(fetchTasks(props.todolist.id))
     }
   }, [])
 
