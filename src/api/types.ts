@@ -1,4 +1,4 @@
-// Task types
+// task types
 export enum TaskStatuses {
   New = 0,
   InProgress = 1,
@@ -50,7 +50,7 @@ export type GetTasksResponse = {
   items: TaskType[]
 }
 
-// login types
+// auth types
 export type LoginParamsType = {
   email: string
   password: string

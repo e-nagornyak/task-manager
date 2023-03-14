@@ -2,7 +2,7 @@ import React, { ChangeEvent, memo } from 'react'
 import BackspaceIcon from '@mui/icons-material/Backspace'
 import { Checkbox, IconButton } from '@mui/material'
 import { TaskStatuses, TaskType } from 'api/types'
-import { EditableSpan } from 'components/EditableSpan/EditableSpan'
+import { EditableSpan } from 'components/editableSpan/EditableSpan'
 
 type TaskPropsType = {
   task: TaskType

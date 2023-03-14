@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { TaskPriorities, TaskStatuses, TaskType } from "api/types"
-import { addTaskTC, fetchTasks, removeTaskTC, updateTaskTC } from "app/reducer/thunks"
-import { addTodolistTC, fetchTodolistsTC, removeTodolistTC } from "features/TodolistsList/Todolist/reducer/thunks"
+import { addTaskTC, fetchTasks, removeTaskTC, updateTaskTC } from "features/todolistsList/todolist/task/reducer/thunks"
+import { addTodolistTC, fetchTodolistsTC, removeTodolistTC } from "features/todolistsList/todolist/reducer/thunks"
 
 export type TaskStateType = {
   [key: string]: TaskType[]

@@ -1,30 +1,33 @@
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
 import { TaskStatuses } from "api/types"
-import { addTaskTC, removeTaskTC, updateTaskTC } from "app/reducer/thunks"
-import { AddItemForm } from "components/AddItemForm/AddItemForm"
+import { AddItemForm } from "components/addItemForm/AddItemForm"
+import { selectIsLoggedIn } from "features/auth"
 import {
   addTodolistTC,
   changeTodolistTitleTC,
   fetchTodolistsTC,
   removeTodolistTC
-} from "features/TodolistsList/Todolist/reducer/thunks"
-import { TaskStateType } from "features/TodolistsList/Todolist/Task/reducer/tasks-reducer"
+} from "features/todolistsList/todolist/reducer/thunks"
+import { TaskStateType } from "features/todolistsList/todolist/task/reducer/tasks-reducer"
+import { addTaskTC, removeTaskTC, updateTaskTC } from "features/todolistsList/todolist/task/reducer/thunks"
 import { useAppDispatch, useAppSelector } from "hooks/hooks"
-import React, { useCallback, useEffect } from "react"
+import { useActions } from "hooks/useActions"
+import React, { FC, useCallback, useEffect } from "react"
 import { Navigate } from "react-router-dom"
-import { changeTaskFilter, FilterValueType, TodolistDomainType } from "./Todolist/reducer/todolists-reducer"
-import { TodoList } from "./Todolist/TodoList"
+import { changeTaskFilter, FilterValueType, TodolistDomainType } from "./todolist/reducer/todolists-reducer"
+import { TodoList } from "./todolist/TodoList"
 
 type TodolistsListPropsType = {
   demo?: boolean
 }
-export const TodolistsList: React.FC<TodolistsListPropsType> = ({ demo = false }) => {
+
+export const TodolistsList: FC<TodolistsListPropsType> = ({ demo = false }) => {
   const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn)
   const todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists)
   const tasks = useAppSelector<TaskStateType>(state => state.tasks)
-
+  const a = useActions({fetchTodolistsTC})
   useEffect(() => {
     if (!demo || isLoggedIn) {
       dispatch(fetchTodolistsTC())
@@ -83,7 +86,7 @@ export const TodolistsList: React.FC<TodolistsListPropsType> = ({ demo = false }
     return <Navigate to='/login' />
   }
 
-  const todolistItem = todolists.length ? (
+  const todolistItem = todolists.length ?
     todolists.map(tl => (
       <Grid key={tl.id} item>
         <Paper style={{ padding: "10px" }}>
@@ -103,18 +106,13 @@ export const TodolistsList: React.FC<TodolistsListPropsType> = ({ demo = false }
         </Paper>
       </Grid>
     ))
-  ) : (
-    <span className='warning'>Your list is empty</span>
-  )
-
-  return (
-    <div>
-      <Grid container>
-        <AddItemForm addItem={addTodolist} />
-      </Grid>
-      <Grid container spacing={3}>
-        {todolistItem}
-      </Grid>
-    </div>
-  )
+    : <span className='warning'>Your list is empty</span>
+  return <div>
+    <Grid container>
+      <AddItemForm addItem={addTodolist} />
+    </Grid>
+    <Grid container spacing={3}>
+      {todolistItem}
+    </Grid>
+  </div>
 }

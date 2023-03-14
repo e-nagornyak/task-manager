@@ -4,7 +4,7 @@ import {AddItemForm} from "./AddItemForm";
 import {action} from "@storybook/addon-actions";
 
 export default {
-    title: 'TODOLISTS/AddItemForm',
+    title: 'TODOLISTS/addItemForm',
     component: AddItemForm,
     argTypes: {
         onCLick: {

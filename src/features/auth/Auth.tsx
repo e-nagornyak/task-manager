@@ -1,21 +1,21 @@
-import React from "react"
-import Grid from "@mui/material/Grid"
+import Button from "@mui/material/Button"
 import Checkbox from "@mui/material/Checkbox"
 import FormControl from "@mui/material/FormControl"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import FormGroup from "@mui/material/FormGroup"
 import FormLabel from "@mui/material/FormLabel"
+import Grid from "@mui/material/Grid"
 import TextField from "@mui/material/TextField"
-import Button from "@mui/material/Button"
+import { selectIsLoggedIn } from "features/auth"
+import { loginTC } from "features/auth/reducer/thunks"
 import { useFormik } from "formik"
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks"
-import { loginTC } from "./auth-reducer"
+import { useAppDispatch, useAppSelector } from "hooks/hooks"
+import React, { FC } from "react"
 import { Navigate } from "react-router-dom"
 
-export const Login = () => {
-
+export const Auth: FC = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
   const formik = useFormik({
     initialValues: {

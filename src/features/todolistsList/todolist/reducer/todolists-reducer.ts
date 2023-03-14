@@ -5,7 +5,7 @@ import {
   changeTodolistTitleTC,
   fetchTodolistsTC,
   removeTodolistTC
-} from "features/TodolistsList/Todolist/reducer/thunks"
+} from "features/todolistsList/todolist/reducer/thunks"
 
 export type TodolistDomainType = TodolistType & { filter: FilterValueType; entityStatus: AppStatusType }
 export type FilterValueType = "all" | "active" | "completed"

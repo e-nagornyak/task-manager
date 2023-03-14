@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { todolistsAPI } from "api/todolistsAPI"
 import { setAppStatus } from "app/reducer/app-reducer"
 import { AxiosError } from "axios"
-import { setTodolistStatus } from "features/TodolistsList/Todolist/reducer/todolists-reducer"
+import { setTodolistStatus } from "features/todolistsList/todolist/reducer/todolists-reducer"
 import { handleServerNetworkError } from "utils/error-utils"
 
 export const fetchTodolistsTC = createAsyncThunk("todolist/fetchTodolists",

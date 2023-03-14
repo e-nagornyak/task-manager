@@ -4,7 +4,7 @@ import { UpdateTaskType } from "api/types"
 import { setAppStatus } from "app/reducer/app-reducer"
 import { AppRootStateType } from "app/store"
 import { AxiosError } from "axios"
-import { UpdateTaskModel } from "features/TodolistsList/Todolist/Task/reducer/tasks-reducer"
+import { UpdateTaskModel } from "features/todolistsList/todolist/task/reducer/tasks-reducer"
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils"
 
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks",
@@ -58,7 +58,7 @@ export const updateTaskTC = createAsyncThunk("tasks/updateTask",
     const task = (getState() as AppRootStateType).tasks[todolistId].find(t => t.id === taskId)
 
     if (!task) {
-      return rejectWithValue("Task now found in the state")
+      return rejectWithValue("task now found in the state")
     }
 
     const ApiModel: UpdateTaskType = {

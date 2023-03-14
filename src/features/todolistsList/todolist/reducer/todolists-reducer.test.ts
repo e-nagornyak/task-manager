@@ -3,7 +3,7 @@ import {
   changeTodolistTitleTC,
   fetchTodolistsTC,
   removeTodolistTC
-} from "features/TodolistsList/Todolist/reducer/thunks"
+} from "features/todolistsList/todolist/reducer/thunks"
 import { v1 } from "uuid"
 import { setTodolistStatus, TodolistDomainType, todolistsReducer } from "./todolists-reducer"
 
@@ -46,21 +46,21 @@ test("correct todolist should be added", () => {
       id: "",
       addedDate: "",
       order: 1,
-      title: "New Todolist"
+      title: "New todolist"
     }
   }, "", ""))
 
   expect(endState.length).toBe(3)
-  expect(endState[0].title).toBe("New Todolist")
+  expect(endState[0].title).toBe("New todolist")
   expect(endState[0].filter).toBe("all")
 })
 
 test("correct todolist title", () => {
-  const todolist = { todolistId: todolistId2, title: "New Todolist" }
+  const todolist = { todolistId: todolistId2, title: "New todolist" }
 
   const endState = todolistsReducer(startState, changeTodolistTitleTC.fulfilled(todolist, "", todolist))
 
-  expect(endState[1].title).toBe("New Todolist")
+  expect(endState[1].title).toBe("New todolist")
   expect(endState[0].filter).toBe("all")
 })
 
