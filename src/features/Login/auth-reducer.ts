@@ -1,10 +1,9 @@
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { authAPI } from "api/authAPI"
 import { LoginParamsType } from "api/types"
 import { setAppStatus } from "app/reducer/app-reducer"
-import { AppThunk } from "app/store"
-import { handleServerAppError, handleServerNetworkError } from "utils/error-utils"
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AxiosError } from "axios"
+import { handleServerAppError, handleServerNetworkError } from "utils/error-utils"
 
 const slice = createSlice({
   name: "auth",
@@ -51,11 +50,11 @@ export const logoutTC = createAsyncThunk("auth/logout", async (param, { dispatch
       dispatch(setAppStatus({ status: "succeeded" }))
     } else {
       handleServerAppError(res.data, dispatch)
-      return rejectWithValue({})
+      return rejectWithValue(null)
     }
   } catch (error) {
     handleServerNetworkError(error as AxiosError, dispatch)
-    return rejectWithValue({})
+    return rejectWithValue(null)
   }
 })
 

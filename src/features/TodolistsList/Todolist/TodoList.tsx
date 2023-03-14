@@ -1,8 +1,8 @@
+import { fetchTasks } from "app/reducer/thunks"
 import React, { memo, useCallback, useEffect, useMemo } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import { fetchTasks } from './reducers/tasks-reducer'
 import { FilterValueType, TodolistDomainType } from './reducers/todolists-reducer'
 import { Task } from './Task/Task'
 import { TaskStatuses, TaskType } from 'api/types'

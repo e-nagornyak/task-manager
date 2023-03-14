@@ -1,8 +1,9 @@
+import { addTaskTC, removeTaskTC, updateTaskTC } from "app/reducer/thunks"
 import React, { useCallback, useEffect } from "react"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
 import { Navigate } from "react-router-dom"
-import { addTaskTC, removeTaskTC, TaskStateType, updateTaskTC } from "./Todolist/reducers/tasks-reducer"
+import { TaskStateType } from "./Todolist/reducers/tasks-reducer"
 import {
   changeTaskFilter,
   changeTodolistTitleTC,
@@ -59,18 +60,18 @@ export const TodolistsList: React.FC<TodolistsListPropsType> = ({ demo = false }
 
   const addTask = useCallback(
     (todolistId: string, title: string) => {
-      dispatch(addTaskTC(todolistId, title))
+      dispatch(addTaskTC({ todolistId, title }))
     }, [dispatch])
 
   const changeTaskStatus = useCallback(
     (todolistId: string, taskId: string, status: TaskStatuses) => {
-      dispatch(updateTaskTC(todolistId, taskId, { status }))
+      dispatch(updateTaskTC({ todolistId, taskId, model: { status } }))
     }, [dispatch]
   )
 
   const changeTaskTitle = useCallback(
     (todolistId: string, taskId: string, newTitle: string) => {
-      dispatch(updateTaskTC(todolistId, taskId, { title: newTitle }))
+      dispatch(updateTaskTC({ todolistId, taskId, model: { title: newTitle } }))
     }, [dispatch]
   )
 
