@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { TaskPriorities, TaskStatuses, TaskType } from "api/types"
 import { addTaskTC, fetchTasks, removeTaskTC, updateTaskTC } from "app/reducer/thunks"
-import { addTodolist, removeTodolist, setTodolists } from "features/TodolistsList/Todolist/reducers/todolists-reducer"
+import { addTodolistTC, fetchTodolistsTC, removeTodolistTC } from "features/TodolistsList/Todolist/reducer/thunks"
 
 export type TaskStateType = {
   [key: string]: TaskType[]
@@ -21,16 +21,14 @@ const slice = createSlice({
   initialState: {} as TaskStateType,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(addTodolist, (state, action) => {
+    builder.addCase(addTodolistTC.fulfilled, (state, action) => {
       state[action.payload.todolist.id] = []
     })
-    builder.addCase(removeTodolist, (state, action) => {
+    builder.addCase(removeTodolistTC.fulfilled, (state, action) => {
       delete state[action.payload.todolistId]
     })
-    builder.addCase(setTodolists, (state, action) => {
-      action.payload.todolists.map(tl => {
-        state[tl.id] = []
-      })
+    builder.addCase(fetchTodolistsTC.fulfilled, (state, action) => {
+      action.payload.todolists.map(tl => state[tl.id] = [])
     })
     builder.addCase(fetchTasks.fulfilled, (state, action) => {
       state[action.payload.todolistId] = action.payload.tasks

@@ -1,13 +1,13 @@
-import React from 'react'
-import { Provider } from 'react-redux'
-import { applyMiddleware, combineReducers, legacy_createStore } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import { v1 } from 'uuid'
-import { TaskPriorities, TaskStatuses } from 'api/types'
-import { appReducer } from 'app/reducer/app-reducer'
-import { AppRootStateType } from 'app/store'
-import { tasksReducer } from 'features/TodolistsList/Todolist/reducers/tasks-reducer'
-import { todolistsReducer } from 'features/TodolistsList/Todolist/reducers/todolists-reducer'
+import { TaskPriorities, TaskStatuses } from "api/types"
+import { appReducer } from "app/reducer/app-reducer"
+import { AppRootStateType } from "app/store"
+import { tasksReducer } from "features/TodolistsList/Todolist/Task/reducer/tasks-reducer"
+import { todolistsReducer } from "features/TodolistsList/Todolist/reducer/todolists-reducer"
+import React from "react"
+import { Provider } from "react-redux"
+import { applyMiddleware, combineReducers, legacy_createStore } from "redux"
+import thunkMiddleware from "redux-thunk"
+import { v1 } from "uuid"
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
@@ -18,19 +18,19 @@ const rootReducer = combineReducers({
 const initialGlobalState: AppRootStateType = {
   todolists: [
     {
-      id: 'todolistId1',
-      title: 'What to learn',
-      filter: 'all',
-      entityStatus: 'idle',
-      addedDate: '',
+      id: "todolistId1",
+      title: "What to learn",
+      filter: "all",
+      entityStatus: "idle",
+      addedDate: "",
       order: 0
     },
     {
-      id: 'todolistId2',
-      title: 'What to buy',
-      filter: 'all',
-      entityStatus: 'loading',
-      addedDate: '',
+      id: "todolistId2",
+      title: "What to buy",
+      filter: "all",
+      entityStatus: "loading",
+      addedDate: "",
       order: 0
     }
   ],
@@ -38,43 +38,43 @@ const initialGlobalState: AppRootStateType = {
     todolistId1: [
       {
         id: v1(),
-        title: 'HTML',
+        title: "HTML",
         status: TaskStatuses.Completed,
-        todoListId: 'todolistId1',
-        description: '',
-        startDate: '',
-        addedDate: '',
+        todoListId: "todolistId1",
+        description: "",
+        startDate: "",
+        addedDate: "",
         order: 0,
         priority: TaskPriorities.Low,
-        deadline: ''
+        deadline: ""
       },
       {
         id: v1(),
-        title: 'HTML',
+        title: "HTML",
         status: TaskStatuses.Completed,
-        todoListId: 'todolistId1',
-        description: '',
-        startDate: '',
-        addedDate: '',
+        todoListId: "todolistId1",
+        description: "",
+        startDate: "",
+        addedDate: "",
         order: 0,
         priority: TaskPriorities.Low,
-        deadline: ''
+        deadline: ""
       },
       {
         id: v1(),
-        title: 'HTML',
+        title: "HTML",
         status: TaskStatuses.Completed,
-        todoListId: 'todolistId1',
-        description: '',
-        startDate: '',
-        addedDate: '',
+        todoListId: "todolistId1",
+        description: "",
+        startDate: "",
+        addedDate: "",
         order: 0,
         priority: TaskPriorities.Low,
-        deadline: ''
+        deadline: ""
       }
     ]
   },
-  app: { status: 'idle', error: null, isInitialized: false },
+  app: { status: "idle", error: null, isInitialized: false },
   auth: { isLoggedIn: false }
 }
 

@@ -1,22 +1,20 @@
-import { addTaskTC, removeTaskTC, updateTaskTC } from "app/reducer/thunks"
-import React, { useCallback, useEffect } from "react"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
-import { Navigate } from "react-router-dom"
-import { TaskStateType } from "./Todolist/reducers/tasks-reducer"
-import {
-  changeTaskFilter,
-  changeTodolistTitleTC,
-  addTodolistTC,
-  fetchTodolistsTC,
-  FilterValueType,
-  removeTodolistTC,
-  TodolistDomainType
-} from "./Todolist/reducers/todolists-reducer"
-import { TodoList } from "./Todolist/TodoList"
 import { TaskStatuses } from "api/types"
+import { addTaskTC, removeTaskTC, updateTaskTC } from "app/reducer/thunks"
 import { AddItemForm } from "components/AddItemForm/AddItemForm"
+import {
+  addTodolistTC,
+  changeTodolistTitleTC,
+  fetchTodolistsTC,
+  removeTodolistTC
+} from "features/TodolistsList/Todolist/reducer/thunks"
+import { TaskStateType } from "features/TodolistsList/Todolist/Task/reducer/tasks-reducer"
 import { useAppDispatch, useAppSelector } from "hooks/hooks"
+import React, { useCallback, useEffect } from "react"
+import { Navigate } from "react-router-dom"
+import { changeTaskFilter, FilterValueType, TodolistDomainType } from "./Todolist/reducer/todolists-reducer"
+import { TodoList } from "./Todolist/TodoList"
 
 type TodolistsListPropsType = {
   demo?: boolean
@@ -48,7 +46,7 @@ export const TodolistsList: React.FC<TodolistsListPropsType> = ({ demo = false }
 
   const changeTodolistTitle = useCallback(
     (todolistId: string, title: string) => {
-      dispatch(changeTodolistTitleTC(todolistId, title))
+      dispatch(changeTodolistTitleTC({ todolistId, title }))
     }, [dispatch]
   )
 

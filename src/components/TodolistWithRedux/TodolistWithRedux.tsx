@@ -9,11 +9,11 @@ export const TodolistWithRedux = {};
 //     changeTaskStatusAC,
 //     changeTaskTitleAC,
 //     removeTask
-// } from "../../redux/reducers/tasks-reducer";
+// } from "../../redux/reducer/tasks-reducer";
 // import {
 //     changeTaskFilter, changeTodolistTitle, FilterValueType,
 //     removeTodolist, TodolistDomainType
-// } from "../../redux/reducers/todolists-reducer";
+// } from "../../redux/reducer/todolists-reducer";
 // import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 // import {TaskStatuses, TaskType} from "../../api/todolists-api";
 //

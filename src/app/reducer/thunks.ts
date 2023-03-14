@@ -4,7 +4,7 @@ import { UpdateTaskType } from "api/types"
 import { setAppStatus } from "app/reducer/app-reducer"
 import { AppRootStateType } from "app/store"
 import { AxiosError } from "axios"
-import { UpdateTaskModel } from "features/TodolistsList/Todolist/reducers/tasks-reducer"
+import { UpdateTaskModel } from "features/TodolistsList/Todolist/Task/reducer/tasks-reducer"
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils"
 
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks",
