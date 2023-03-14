@@ -15,8 +15,11 @@ const slice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(loginTC.fulfilled, (state, action) => {
-      state.isLoggedIn = action.payload.isLoggedIn
+    builder.addCase(loginTC.fulfilled, (state) => {
+      state.isLoggedIn = true
+    })
+    builder.addCase(logoutTC.fulfilled, (state) => {
+      state.isLoggedIn = false
     })
   }
 })
@@ -30,7 +33,6 @@ export const loginTC = createAsyncThunk("auth/login", async (param: LoginParamsT
     const res = await authAPI.login(param)
     if (res.data.resultCode === 0) {
       dispatch(setAppStatus({ status: "succeeded" }))
-      return { isLoggedIn: true }
     } else {
       handleServerAppError(res.data, dispatch)
       return rejectWithValue({ errors: res.data.messages, fieldsErrors: res.data.fieldsErrors })
@@ -41,17 +43,19 @@ export const loginTC = createAsyncThunk("auth/login", async (param: LoginParamsT
   }
 })
 
-export const logoutTC = (): AppThunk => async (dispatch) => {
+export const logoutTC = createAsyncThunk("auth/logout", async (param, { dispatch, rejectWithValue }) => {
   dispatch(setAppStatus({ status: "loading" }))
   try {
     const res = await authAPI.logout()
     if (res.data.resultCode === 0) {
-      dispatch(setIsLoggedIn({ status: false }))
       dispatch(setAppStatus({ status: "succeeded" }))
     } else {
       handleServerAppError(res.data, dispatch)
+      return rejectWithValue({})
     }
   } catch (error) {
     handleServerNetworkError(error as AxiosError, dispatch)
+    return rejectWithValue({})
   }
-}
+})
+
