@@ -1,6 +1,6 @@
-import React, {ChangeEvent, KeyboardEvent, memo, useState} from "react";
-import {Button, TextField} from "@mui/material";
-import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
+import LibraryAddIcon from "@mui/icons-material/LibraryAdd"
+import { Button, TextField } from "@mui/material"
+import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react"
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -8,7 +8,7 @@ type AddItemFormPropsType = {
 }
 export const AddItemForm = memo((props: AddItemFormPropsType) => {
     const [error, setError] = useState<boolean>(false)
-    const [title, setTitle] = useState<string>('')
+    const [title, setTitle] = useState<string>("")
 
     const onChangeSetLocalTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
@@ -31,15 +31,20 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
         <div style={{display: "flex",
             alignItems: 'flex-end'}}>
             <TextField
-                id="outlined-basic"
-                label={error ? 'Title is required' : 'type your text'}
-                variant="standard"
-                error={error}
-                value={title}
-                onChange={onChangeSetLocalTitle}
-                onKeyDown={onKeyDownEnterAddTask}
+              color={"secondary"}
+              id='outlined-basic'
+              label={error ? "Title is required" : "type your text"}
+              variant='standard'
+              error={error}
+              value={title}
+              onChange={onChangeSetLocalTitle}
+              onKeyDown={onKeyDownEnterAddTask}
             />
-            <Button disabled={props.disabled} onClick={onClickAddTask} variant="text" startIcon={<LibraryAddIcon/>}>
+            <Button
+              disabled={props.disabled}
+              color={"secondary"}
+              onClick={onClickAddTask}
+              startIcon={<LibraryAddIcon color={"secondary"} />}>
                 Add
             </Button>
         </div>

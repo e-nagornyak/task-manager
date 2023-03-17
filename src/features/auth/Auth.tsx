@@ -6,10 +6,11 @@ import FormGroup from "@mui/material/FormGroup"
 import FormLabel from "@mui/material/FormLabel"
 import Grid from "@mui/material/Grid"
 import TextField from "@mui/material/TextField"
-import { selectIsLoggedIn } from "features/auth"
 import { loginTC } from "features/auth/reducer/thunks"
+import { selectIsLoggedIn } from "features/auth/selectors"
 import { useFormik } from "formik"
-import { useAppDispatch, useAppSelector } from "hooks/hooks"
+import { useAppDispatch } from "hooks/useAppDispatch"
+import { useAppSelector } from "hooks/useAppSelector"
 import React, { FC } from "react"
 import { Navigate } from "react-router-dom"
 
@@ -61,25 +62,33 @@ export const Auth: FC = () => {
             <TextField
               label='Email'
               margin='normal'
+              placeholder={"example@gmail.com"}
+              color={"secondary"}
+              id={"outlined-error-helper-text"}
+              helperText={formik.errors.email}
+              error={!!formik.errors.email && formik.touched.email}
               {...formik.getFieldProps("email")}
             />
-            {formik.errors.email && <div>{formik.errors.email}</div>}
             <TextField
               type='password'
               label='Password'
               margin='normal'
+              color={"secondary"}
+              id={"outlined-error-helper-text"}
+              helperText={formik.errors.password}
+              error={!!formik.errors.password && formik.touched.password}
               {...formik.getFieldProps("password")}
             />
-            {formik.errors.password && <div>{formik.errors.password}</div>}
             <FormControlLabel
               label={"Remember me"}
               control={
                 <Checkbox
+                  color={"secondary"}
                   {...formik.getFieldProps("rememberMe")}
                   checked={formik.values.rememberMe}
                 />
               } />
-            <Button type={"submit"} variant={"contained"} color={"primary"}>
+            <Button type={"submit"} variant={"contained"} color={"secondary"}>
               Login
             </Button>
           </FormGroup>

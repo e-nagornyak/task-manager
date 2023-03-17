@@ -1,4 +1,4 @@
-import { useAppDispatch } from "hooks/hooks"
+import { useAppDispatch } from "hooks/useAppDispatch"
 import { useMemo } from "react"
 import { ActionCreatorsMapObject, bindActionCreators } from "redux"
 

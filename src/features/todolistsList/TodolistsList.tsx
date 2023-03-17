@@ -11,8 +11,8 @@ import {
 } from "features/todolistsList/todolist/reducer/thunks"
 import { TaskStateType } from "features/todolistsList/todolist/task/reducer/tasks-reducer"
 import { addTaskTC, removeTaskTC, updateTaskTC } from "features/todolistsList/todolist/task/reducer/thunks"
-import { useAppDispatch, useAppSelector } from "hooks/hooks"
-import { useActions } from "hooks/useActions"
+import { useAppDispatch } from "hooks/useAppDispatch"
+import { useAppSelector } from "hooks/useAppSelector"
 import React, { FC, useCallback, useEffect } from "react"
 import { Navigate } from "react-router-dom"
 import { changeTaskFilter, FilterValueType, TodolistDomainType } from "./todolist/reducer/todolists-reducer"
@@ -27,7 +27,6 @@ export const TodolistsList: FC<TodolistsListPropsType> = ({ demo = false }) => {
   const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn)
   const todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists)
   const tasks = useAppSelector<TaskStateType>(state => state.tasks)
-  const a = useActions({fetchTodolistsTC})
   useEffect(() => {
     if (!demo || isLoggedIn) {
       dispatch(fetchTodolistsTC())
@@ -108,7 +107,7 @@ export const TodolistsList: FC<TodolistsListPropsType> = ({ demo = false }) => {
     ))
     : <span className='warning'>Your list is empty</span>
   return <div>
-    <Grid container>
+    <Grid  container>
       <AddItemForm addItem={addTodolist} />
     </Grid>
     <Grid container spacing={3}>

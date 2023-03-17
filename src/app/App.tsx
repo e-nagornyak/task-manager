@@ -1,34 +1,35 @@
 import CircularProgress from "@mui/material/CircularProgress"
 import Container from "@mui/material/Container"
 import LinearProgress from "@mui/material/LinearProgress"
-import { selectIsInitialized, selectStatus } from "app"
+import { initializeAppTC, selectIsInitialized, selectStatus } from "app"
 import { ErrorSnackbars } from "components/errorSnackbar/ErrorSnackbar"
 import { Auth } from "features/auth/Auth"
 import { TodolistsList } from "features/todolistsList/TodolistsList"
-import { useAppDispatch, useAppSelector } from "hooks/hooks"
+import { useAppDispatch, useAppSelector } from "hooks"
 import React, { FC, useEffect } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 import ButtonAppBar from "../features/buttonAppBar/ButtonAppBar"
 import "./App.css"
-import { initializeAppTC } from "./reducer/thunk"
 
-type AppPropsType = {
+type PropsType = {
   demo?: boolean
 }
 
-export const App: FC<AppPropsType> = ({ demo = false }) => {
+export const App: FC<PropsType> = ({ demo = false }) => {
   const dispatch = useAppDispatch()
   const status = useAppSelector(selectStatus)
   const isInitialized = useAppSelector(selectIsInitialized)
 
   useEffect(() => {
-    dispatch(initializeAppTC())
+    if (!demo) {
+      dispatch(initializeAppTC())
+    }
   }, [])
 
   if (!isInitialized) {
     return (
       <div style={{ width: "100%", position: "fixed", top: "30%", textAlign: "center" }}>
-        <CircularProgress size={80} />
+        <CircularProgress size={80} color={'secondary'} />
       </div>
     )
   }
@@ -36,7 +37,7 @@ export const App: FC<AppPropsType> = ({ demo = false }) => {
   return (
     <div className='App'>
       <ButtonAppBar />
-      {status === "loading" && <LinearProgress color='info' />}
+      {status === "loading" && <LinearProgress color='warning' />}
       <ErrorSnackbars />
       <Container fixed>
         <Routes>

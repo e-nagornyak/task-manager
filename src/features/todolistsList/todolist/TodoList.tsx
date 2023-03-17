@@ -1,4 +1,5 @@
 import { fetchTasks } from "features/todolistsList/todolist/task/reducer/thunks"
+import { useAppDispatch } from "hooks/useAppDispatch"
 import React, { memo, useCallback, useEffect, useMemo } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
@@ -8,7 +9,6 @@ import { Task } from './task/Task'
 import { TaskStatuses, TaskType } from 'api/types'
 import { AddItemForm } from 'components/addItemForm/AddItemForm'
 import { EditableSpan } from 'components/editableSpan/EditableSpan'
-import { useAppDispatch } from 'hooks/hooks'
 
 type TodoListPropsType = {
   todolist: TodolistDomainType
