@@ -1,20 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { TaskPriorities, TaskStatuses, TaskType } from "api/types"
-import { addTaskTC, fetchTasks, removeTaskTC, updateTaskTC } from "features/todolistsList/todolist/task/reducer/thunks"
 import { addTodolistTC, fetchTodolistsTC, removeTodolistTC } from "features/todolistsList/todolist/reducer/thunks"
-
-export type TaskStateType = {
-  [key: string]: TaskType[]
-}
-
-export type UpdateTaskModel = {
-  title?: string
-  description?: string
-  status?: TaskStatuses
-  priority?: TaskPriorities
-  startDate?: string
-  deadline?: string
-}
+import { addTaskTC, fetchTasks, removeTaskTC, updateTaskTC } from "features/todolistsList/todolist/task/reducer/thunks"
+import { TaskStateType } from "features/todolistsList/todolist/task/reducer/types"
 
 const slice = createSlice({
   name: "tasks",

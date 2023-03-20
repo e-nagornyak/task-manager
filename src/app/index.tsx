@@ -1,5 +1,6 @@
 export * from "./selectors"
 export * from "./store"
+export * from "./reducer/app-reducer"
 export * from "./reducer/thunk"
 export * as appThunks from "./reducer/thunk"
 export { App } from "./App"

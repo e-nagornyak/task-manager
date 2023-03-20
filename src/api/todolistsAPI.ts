@@ -1,6 +1,6 @@
+import { TodolistType } from "features/todolistsList"
 import { instance } from './instance'
 import { GetTasksResponse, ResponseType, TaskType, UpdateTaskType } from './types'
-import { TodolistType } from 'features/todolistsList/todolist/reducer/todolists-reducer'
 
 export const todolistsAPI = {
   getTodolists() {

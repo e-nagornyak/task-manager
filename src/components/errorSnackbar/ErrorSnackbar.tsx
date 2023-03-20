@@ -1,9 +1,8 @@
-import { useAppDispatch } from "hooks/useAppDispatch"
-import { useAppSelector } from "hooks/useAppSelector"
-import * as React from 'react'
-import Snackbar from '@mui/material/Snackbar'
-import MuiAlert, { AlertProps } from '@mui/material/Alert'
-import { setAppError } from 'app/reducer/app-reducer'
+import MuiAlert, { AlertProps } from "@mui/material/Alert"
+import Snackbar from "@mui/material/Snackbar"
+import { selectError, setAppError } from "app"
+import { useAppDispatch,useAppSelector } from "hooks"
+import React from "react"
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
@@ -11,7 +10,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 
 export const ErrorSnackbars = () => {
   const dispatch = useAppDispatch()
-  const error = useAppSelector<null | string>(state => state.app.error)
+  const error = useAppSelector(selectError)
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {

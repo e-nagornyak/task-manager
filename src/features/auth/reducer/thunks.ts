@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { authAPI } from "api/authAPI"
-import { LoginParamsType } from "api/types"
+import { LoginParamsType } from "api"
 import { setAppStatus } from "app/reducer/app-reducer"
 import { AxiosError } from "axios"
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils"

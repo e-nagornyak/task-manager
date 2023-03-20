@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppStatusType } from "app/reducer/app-reducer"
+import { FilterValueType, TodolistDomainType } from "features/todolistsList"
 import {
   addTodolistTC,
   changeTodolistTitleTC,
@@ -7,17 +8,7 @@ import {
   removeTodolistTC
 } from "features/todolistsList/todolist/reducer/thunks"
 
-export type TodolistDomainType = TodolistType & { filter: FilterValueType; entityStatus: AppStatusType }
-export type FilterValueType = "all" | "active" | "completed"
-
-export type TodolistType = {
-  id: string
-  title: string
-  addedDate: string
-  order: number
-}
-
-const slice = createSlice({
+export const slice = createSlice({
   name: "todolist",
   initialState: [] as TodolistDomainType[],
   reducers: {

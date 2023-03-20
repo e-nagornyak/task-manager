@@ -1,3 +1,4 @@
+import { TodolistDomainType } from "features/todolistsList"
 import {
   addTodolistTC,
   changeTodolistTitleTC,
@@ -5,7 +6,7 @@ import {
   removeTodolistTC
 } from "features/todolistsList/todolist/reducer/thunks"
 import { v1 } from "uuid"
-import { setTodolistStatus, TodolistDomainType, todolistsReducer } from "./todolists-reducer"
+import { setTodolistStatus, todolistsReducer } from "./todolists-reducer"
 
 let todolistId1: string
 let todolistId2: string
