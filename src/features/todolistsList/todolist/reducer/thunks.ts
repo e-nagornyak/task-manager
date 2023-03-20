@@ -5,7 +5,7 @@ import { AxiosError } from "axios"
 import { setTodolistStatus } from "features/todolistsList/todolist/reducer/todolists-reducer"
 import { handleServerNetworkError } from "utils/error-utils"
 
-export const fetchTodolistsTC = createAsyncThunk("todolist/fetchTodolists",
+export const fetchTodolists = createAsyncThunk("todolist/fetchTodolists",
   async (param, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: "loading" }))
     try {
@@ -18,7 +18,7 @@ export const fetchTodolistsTC = createAsyncThunk("todolist/fetchTodolists",
     }
   })
 
-export const removeTodolistTC = createAsyncThunk("todolist/removeTodolist",
+export const removeTodolist = createAsyncThunk("todolist/removeTodolist",
   async (todolistId: string, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: "loading" }))
     dispatch(setTodolistStatus({ todolistId, status: "loading" }))
@@ -32,7 +32,7 @@ export const removeTodolistTC = createAsyncThunk("todolist/removeTodolist",
     }
   })
 
-export const addTodolistTC = createAsyncThunk("todolist/addTodolist",
+export const addTodolist = createAsyncThunk("todolist/addTodolist",
   async (title: string, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: "loading" }))
     try {
@@ -45,7 +45,7 @@ export const addTodolistTC = createAsyncThunk("todolist/addTodolist",
     }
   })
 
-export const changeTodolistTitleTC = createAsyncThunk("todolist/changeTodolistTitle",
+export const changeTodolistTitle = createAsyncThunk("todolist/changeTodolistTitle",
   async (param: { todolistId: string, title: string }, { dispatch, rejectWithValue }) => {
     const { todolistId, title } = param
     dispatch(setAppStatus({ status: "loading" }))

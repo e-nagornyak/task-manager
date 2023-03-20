@@ -20,7 +20,7 @@ export const fetchTasks = createAsyncThunk("tasks/fetchTasks",
     }
   })
 
-export const removeTaskTC = createAsyncThunk("tasks/removeTask",
+export const removeTask = createAsyncThunk("tasks/removeTask",
   async (param: { todolistId: string, taskId: string }, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: "loading" }))
     try {
@@ -33,7 +33,7 @@ export const removeTaskTC = createAsyncThunk("tasks/removeTask",
     }
   })
 
-export const addTaskTC = createAsyncThunk("tasks/addTask",
+export const addTask = createAsyncThunk("tasks/addTask",
   async (param: { todolistId: string, title: string }, { dispatch, rejectWithValue }) => {
     dispatch(setAppStatus({ status: "loading" }))
     try {
@@ -51,7 +51,7 @@ export const addTaskTC = createAsyncThunk("tasks/addTask",
     }
   })
 
-export const updateTaskTC = createAsyncThunk("tasks/updateTask",
+export const updateTask = createAsyncThunk("tasks/updateTask",
   async (param: { todolistId: string, taskId: string, model: UpdateTaskModel }, { dispatch, getState, rejectWithValue }) => {
     const { todolistId, taskId, model } = param
     dispatch(setAppStatus({ status: "loading" }))
