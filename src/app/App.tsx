@@ -4,11 +4,11 @@ import LinearProgress from "@mui/material/LinearProgress"
 import { initializeAppTC, selectIsInitialized, selectStatus } from "app"
 import { ErrorSnackbars } from "components/errorSnackbar/ErrorSnackbar"
 import { Auth } from "features/auth"
+import { ButtonAppBar } from "features/buttonAppBar/ButtonAppBar"
 import { TodolistsList } from "features/todolistsList"
 import { useAppDispatch, useAppSelector } from "hooks"
 import React, { FC, useEffect } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
-import { ButtonAppBar } from "features/buttonAppBar/ButtonAppBar"
 import "./App.css"
 
 type PropsType = {

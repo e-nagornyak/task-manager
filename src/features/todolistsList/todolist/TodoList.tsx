@@ -57,7 +57,7 @@ export const TodoList: FC<TodoListPropsType> = memo(({ demo, tasks, todolist }) 
     </>
     : <span className='list_empty'>Your list is empty</span>
 
-  const changeFilterHandler = useCallback((filter: FilterValueType) => () => {
+  const changeFilterHandler = useCallback((filter: FilterValueType) => {
     changeTodolistFilter({ todolistId: todolist.id, filter })
   }, [todolist.id])
 
@@ -87,25 +87,22 @@ export const TodoList: FC<TodoListPropsType> = memo(({ demo, tasks, todolist }) 
     <div className='div-filter'>
       <ButtonMemo
         title='All'
-        size='small'
         color='success'
-        variant={todolist.filter === "all" ? "outlined" : "contained"}
-        onClick={changeFilterHandler("all")}
-      />
+        selectedFilter={todolist.filter}
+        buttonFilter={"all"}
+        onClick={changeFilterHandler} />
       <ButtonMemo
         title='Active'
-        size='small'
         color='error'
-        variant={todolist.filter === "active" ? "outlined" : "contained"}
-        onClick={changeFilterHandler("active")}
-      />
+        selectedFilter={todolist.filter}
+        buttonFilter={"active"}
+        onClick={changeFilterHandler} />
       <ButtonMemo
         title='Completed'
-        size='small'
         color='secondary'
-        variant={todolist.filter === "completed" ? "outlined" : "contained"}
-        onClick={changeFilterHandler("completed")}
-      />
+        selectedFilter={todolist.filter}
+        buttonFilter={"completed"}
+        onClick={changeFilterHandler} />
     </div>
   </div>
 })
