@@ -10,19 +10,15 @@ import { Navigate } from "react-router-dom"
 import { TodoList } from "./todolist/TodoList"
 import s from "./TodolistsList.module.scss"
 
-type TodolistsListPropsType = {
-  demo?: boolean
-}
-
-export const TodolistsList: FC<TodolistsListPropsType> = ({ demo = false }) => {
+export const TodolistsList: FC = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
   const todolists = useAppSelector<TodolistDomainType[]>(state => state.todolists)
   const tasks = useAppSelector<TaskStateType>(state => state.tasks)
 
   const { addTodolist, fetchTodolists } = useActions(todolistsActions)
-
+  console.log("sss")
   useEffect(() => {
-    if (!demo || isLoggedIn) {
+    if (isLoggedIn) {
       fetchTodolists()
     }
   }, [])
@@ -41,7 +37,6 @@ export const TodolistsList: FC<TodolistsListPropsType> = ({ demo = false }) => {
             <Paper className={s.wrapper}>
               <TodoList
                 key={tl.id}
-                demo={demo}
                 todolist={tl}
                 tasks={tasks[tl.id]} />
             </Paper>

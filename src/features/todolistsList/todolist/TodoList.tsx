@@ -12,17 +12,14 @@ import { Task } from "./task/Task"
 type TodoListPropsType = {
   todolist: TodolistDomainType
   tasks: TaskType[]
-  demo?: boolean
 }
 
-export const TodoList: FC<TodoListPropsType> = memo(({ demo, tasks, todolist }) => {
+export const TodoList: FC<TodoListPropsType> = memo(({ tasks, todolist }) => {
   const { changeTodolistFilter, removeTodolist, changeTodolistTitle } = useActions(todolistsActions)
   const { addTask, fetchTasks } = useActions(tasksThunks)
 
   useEffect(() => {
-    if (!demo) {
-      fetchTasks(todolist.id)
-    }
+    fetchTasks(todolist.id)
   }, [])
 
   tasks = useMemo(() => {

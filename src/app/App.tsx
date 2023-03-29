@@ -11,19 +11,13 @@ import React, { FC, useEffect } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 import "./App.css"
 
-type PropsType = {
-  demo?: boolean
-}
-
-export const App: FC<PropsType> = ({ demo = false }) => {
+export const App: FC = () => {
   const dispatch = useAppDispatch()
   const status = useAppSelector(selectStatus)
   const isInitialized = useAppSelector(selectIsInitialized)
 
   useEffect(() => {
-    if (!demo) {
-      dispatch(initializeAppTC())
-    }
+    dispatch(initializeAppTC())
   }, [])
 
   if (!isInitialized) {
