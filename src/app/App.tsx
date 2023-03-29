@@ -39,7 +39,7 @@ export const App: FC<PropsType> = ({ demo = false }) => {
       <ButtonAppBar />
       {status === "loading" && <LinearProgress color='warning' />}
       <ErrorSnackbars />
-      <Container fixed>
+      <Container className={"container"} fixed>
         <Routes>
           <Route path='/' element={<TodolistsList />} />
           <Route path='/login' element={<Auth />} />

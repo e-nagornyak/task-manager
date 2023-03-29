@@ -37,8 +37,14 @@ export const addTodolist = createAsyncThunk("todolist/addTodolist",
     dispatch(setAppStatus({ status: "loading" }))
     try {
       const res = await todolistsAPI.addTodolist(title)
-      dispatch(setAppStatus({ status: "succeeded" }))
-      return { todolist: res.data.data.item }
+      if (res.data.resultCode === 0) {
+        dispatch(setAppStatus({ status: "succeeded" }))
+        return { todolist: res.data.data.item }
+      } else {
+        handleServerNetworkError({ message: res.data.messages[0] }, dispatch)
+        return rejectWithValue(null)
+      }
+
     } catch (error) {
       handleServerNetworkError(error as AxiosError, dispatch)
       return rejectWithValue(null)

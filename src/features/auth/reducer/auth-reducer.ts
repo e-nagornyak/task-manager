@@ -13,9 +13,9 @@ const slice = createSlice({
     builder.addCase(loginTC.fulfilled, (state) => {
       state.isLoggedIn = true
     })
-    builder.addCase(logoutTC.fulfilled, (state) => {
-      state.isLoggedIn = false
-    })
+      .addCase(logoutTC.fulfilled, (state) => {
+        state.isLoggedIn = false
+      })
   }
 })
 

@@ -8,6 +8,7 @@ import { useActions, useAppSelector } from "hooks"
 import React, { FC, useEffect } from "react"
 import { Navigate } from "react-router-dom"
 import { TodoList } from "./todolist/TodoList"
+import s from "./TodolistsList.module.scss"
 
 type TodolistsListPropsType = {
   demo?: boolean
@@ -30,14 +31,14 @@ export const TodolistsList: FC<TodolistsListPropsType> = ({ demo = false }) => {
     return <Navigate to='/login' />
   }
 
-  return <div>
-    <Grid container>
+  return <>
+    <Grid className={'add-todolist'} container>
       <AddItemForm addItem={addTodolist} />
     </Grid>
-    <Grid container spacing={3}>
+    <Grid container spacing={3} style={{ flexWrap: "nowrap", overflowX: "scroll" }}>
       {todolists.length
         ? todolists.map(tl => <Grid key={tl.id} item>
-            <Paper style={{ padding: "10px" }}>
+            <Paper className={s.wrapper}>
               <TodoList
                 key={tl.id}
                 demo={demo}
@@ -47,5 +48,5 @@ export const TodolistsList: FC<TodolistsListPropsType> = ({ demo = false }) => {
           </Grid>
         ) : <span className='warning'>Your list is empty</span>}
     </Grid>
-  </div>
+  </>
 }

@@ -1,12 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppStatusType } from "app/reducer/app-reducer"
 import { FilterValueType, TodolistDomainType } from "features/todolistsList"
-import {
-  addTodolist,
-  changeTodolistTitle,
-  fetchTodolists,
-  removeTodolist
-} from "features/todolistsList/todolist/reducer/thunks"
+import { addTodolist, changeTodolistTitle, fetchTodolists, removeTodolist } from "features/todolistsList/todolist/reducer/thunks"
 
 export const slice = createSlice({
   name: "todolist",
@@ -25,16 +20,16 @@ export const slice = createSlice({
     builder.addCase(fetchTodolists.fulfilled, (state, action) => {
       return action.payload.todolists.map(tl => ({ ...tl, filter: "all", entityStatus: "idle" }))
     })
-    builder.addCase(removeTodolist.fulfilled, (state, action) => {
-      return state.filter(el => el.id !== action.payload.todolistId)
-    })
-    builder.addCase(addTodolist.fulfilled, (state, action) => {
-      state.unshift({ ...action.payload.todolist, filter: "all", entityStatus: "idle" })
-    })
-    builder.addCase(changeTodolistTitle.fulfilled, (state, action) => {
-      const index = state.findIndex(tl => tl.id === action.payload.todolistId)
-      state[index].title = action.payload.title
-    })
+      .addCase(removeTodolist.fulfilled, (state, action) => {
+        return state.filter(el => el.id !== action.payload.todolistId)
+      })
+      .addCase(addTodolist.fulfilled, (state, action) => {
+        state.unshift({ ...action.payload.todolist, filter: "all", entityStatus: "idle" })
+      })
+      .addCase(changeTodolistTitle.fulfilled, (state, action) => {
+        const index = state.findIndex(tl => tl.id === action.payload.todolistId)
+        state[index].title = action.payload.title
+      })
   }
 })
 

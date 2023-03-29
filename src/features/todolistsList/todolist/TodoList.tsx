@@ -17,17 +17,7 @@ type TodoListPropsType = {
 
 export const TodoList: FC<TodoListPropsType> = memo(({ demo, tasks, todolist }) => {
   const { changeTodolistFilter, removeTodolist, changeTodolistTitle } = useActions(todolistsActions)
-  const { addTask, updateTask, removeTask, fetchTasks } = useActions(tasksThunks)
-
-  const changeTaskStatus = useCallback(
-    (todolistId: string, taskId: string, status: TaskStatuses) => {
-      updateTask({ todolistId, taskId, model: { status } })
-    }, [])
-
-  const changeTaskTitle = useCallback(
-    (todolistId: string, taskId: string, newTitle: string) => {
-      updateTask({ todolistId, taskId, model: { title: newTitle } })
-    }, [])
+  const { addTask, fetchTasks } = useActions(tasksThunks)
 
   useEffect(() => {
     if (!demo) {
@@ -41,21 +31,6 @@ export const TodoList: FC<TodoListPropsType> = memo(({ demo, tasks, todolist }) 
 
     return tasks
   }, [todolist.filter, tasks])
-
-  const tasksList = tasks.length
-    ? <>
-      {tasks.map(task => (
-        <Task
-          key={task.id}
-          task={task}
-          todolistId={todolist.id}
-          removeTask={removeTask}
-          changeTaskStatus={changeTaskStatus}
-          changeTaskTitle={changeTaskTitle}
-        />
-      ))}
-    </>
-    : <span className='list_empty'>Your list is empty</span>
 
   const changeFilterHandler = useCallback((filter: FilterValueType) => {
     changeTodolistFilter({ todolistId: todolist.id, filter })
@@ -78,12 +53,16 @@ export const TodoList: FC<TodoListPropsType> = memo(({ demo, tasks, todolist }) 
   return <div className='container'>
     <h3>
       <EditableSpan title={todolist.title} onChange={changeTodolistTitleHandler} />
-      <IconButton onClick={removeTodolistItemHandler} disabled={todolist.entityStatus === "loading"} aria-label='delete'>
+      <IconButton className={'btn_todolist'} onClick={removeTodolistItemHandler} disabled={todolist.entityStatus === "loading"}>
         <DeleteIcon />
       </IconButton>
     </h3>
     <AddItemForm disabled={todolist.entityStatus == "loading"} addItem={addTaskHandler} />
-    {tasksList}
+    {tasks.length
+      ? <>
+        {tasks.map(task => <Task key={task.id} task={task} todolistId={todolist.id} />)}
+      </>
+      : <span className='list_empty'>Your list is empty</span>}
     <div className='div-filter'>
       <ButtonMemo
         title='All'

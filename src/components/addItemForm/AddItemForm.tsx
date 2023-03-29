@@ -1,12 +1,13 @@
-import LibraryAddIcon from "@mui/icons-material/LibraryAdd"
-import { Button, TextField } from "@mui/material"
-import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react"
+import AddBoxIcon from "@mui/icons-material/AddBox"
+import { IconButton, TextField } from "@mui/material"
+import React, { ChangeEvent, FC, KeyboardEvent, memo, useState } from "react"
 
-type AddItemFormPropsType = {
+type PropsType = {
     addItem: (title: string) => void
     disabled?: boolean
 }
-export const AddItemForm = memo((props: AddItemFormPropsType) => {
+
+export const AddItemForm: FC<PropsType> = memo(({ addItem, disabled }) => {
     const [error, setError] = useState<boolean>(false)
     const [title, setTitle] = useState<string>("")
 
@@ -15,12 +16,12 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
         setError(false)
     }
 
-    const onKeyDownEnterAddTask = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && onClickAddTask()
+    const onKeyDownEnterAddTask = (e: KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && onClickAddTask()
 
     const onClickAddTask = () => {
         const trimmedTitle = title.trim()
         if (trimmedTitle) {
-            props.addItem(trimmedTitle)
+            addItem(trimmedTitle)
         } else {
             setError(true)
         }
@@ -40,13 +41,13 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
               onChange={onChangeSetLocalTitle}
               onKeyDown={onKeyDownEnterAddTask}
             />
-            <Button
-              disabled={props.disabled}
+            <IconButton
+              disabled={disabled}
               color={"secondary"}
               onClick={onClickAddTask}
-              startIcon={<LibraryAddIcon color={"secondary"} />}>
-                Add
-            </Button>
+            ><AddBoxIcon fontSize={"medium"} color={"secondary"} />
+            </IconButton>
+
         </div>
     )
 })

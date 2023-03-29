@@ -11,30 +11,30 @@ const slice = createSlice({
     builder.addCase(addTodolist.fulfilled, (state, action) => {
       state[action.payload.todolist.id] = []
     })
-    builder.addCase(removeTodolist.fulfilled, (state, action) => {
-      delete state[action.payload.todolistId]
-    })
-    builder.addCase(fetchTodolists.fulfilled, (state, action) => {
-      action.payload.todolists.map(tl => state[tl.id] = [])
-    })
-    builder.addCase(fetchTasks.fulfilled, (state, action) => {
-      state[action.payload.todolistId] = action.payload.tasks
-    })
-    builder.addCase(removeTask.fulfilled, (state, action) => {
-      const tasks = state[action.payload.todolistId]
-      const index = tasks.findIndex(t => t.id === action.payload?.taskId)
-      tasks.splice(index, 1)
-    })
-    builder.addCase(addTask.fulfilled, (state, action) => {
-      state[action.payload.task.todoListId].unshift(action.payload.task)
-    })
-    builder.addCase(updateTask.fulfilled, (state, action) => {
-      const tasks = state[action.payload.todolistId]
-      const index = tasks.findIndex(t => t.id === action.payload.taskId)
-      if (index > -1) {
-        tasks[index] = { ...tasks[index], ...action.payload.model }
-      }
-    })
+      .addCase(removeTodolist.fulfilled, (state, action) => {
+        delete state[action.payload.todolistId]
+      })
+      .addCase(fetchTodolists.fulfilled, (state, action) => {
+        action.payload.todolists.map(tl => state[tl.id] = [])
+      })
+      .addCase(fetchTasks.fulfilled, (state, action) => {
+        state[action.payload.todolistId] = action.payload.tasks
+      })
+      .addCase(removeTask.fulfilled, (state, action) => {
+        const tasks = state[action.payload.todolistId]
+        const index = tasks.findIndex(t => t.id === action.payload?.taskId)
+        tasks.splice(index, 1)
+      })
+      .addCase(addTask.fulfilled, (state, action) => {
+        state[action.payload.task.todoListId].unshift(action.payload.task)
+      })
+      .addCase(updateTask.fulfilled, (state, action) => {
+        const tasks = state[action.payload.todolistId]
+        const index = tasks.findIndex(t => t.id === action.payload.taskId)
+        if (index > -1) {
+          tasks[index] = { ...tasks[index], ...action.payload.model }
+        }
+      })
   }
 })
 
